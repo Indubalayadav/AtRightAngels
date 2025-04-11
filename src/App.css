@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
+
+#root {
+  --primary-color: #ffffff;
+  --black: #212121;
+  --Blumine: #1f4d7c;
+  --Blumine-hover: #143d66; 
+  --Blumine-bg: #14446f;
+  --SurfCrest: #C3DFC6;
+  --Cornflower: #9DCDE7;
+  --Fantasy: #f8f0ec;
+  --Sidecar: #F4E1C1;
+  --Snuff: #ddd6e9;
+  --MandysPink: #f4cab4;
+  --Melanie: #e9c5da;
+  --FogL: #dbddff;
+  --LemonChiffon: #fff8cc;
+  --MandyPink: #efb1b1;
+  --BrownRust: #be7143;
+  --Rum: #7a6394;
+  --Parsley: #145a31;
+  --Whiskey: #d49c7c;
+  --PixieGreen: #BADCBB;
+  --Bone: #E8D6C9;
+  --MineShaft: #212121;
+  --Emperor: #555555;
+  --WillowBrook: #DDEEDD;
+  --Denim: #1968CF;
+  --MintTulip: #C3E3F2;
+  --Linen: #f8ecd8;
+  --Twilight: #E6D6DF;
+  --Kabul: #645043;
+  --BurntUmber: #912926;
+  --BeautyBush: #efbbc2;
+  --WineBerry: #661C43;
+  --AlbescentWhite: #f2e0c9;
+
+  
+}
+
+body{
+
+  font-family: "Noto Sans", sans-serif;
+}
+
+.mw-1280{
+  max-width: 80rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.wh-1920{
+  width: 120rem;
+  height: 78.375rem;
+}
+
+.logo{
+  width: clamp(17.9575rem, 5.2554rem + 56.4538vw, 73rem);
+  height: 100%;
+}
+.logo .site-logo{
+  width: clamp(5.3619rem, 4.0752rem + 5.7186vw, 10.9375rem);
+}
+.logo .site-title{
+  width: clamp(11.5956rem, 6.2379rem + 23.8122vw, 34.8125rem);
+}
+.down-border img{
+  width:  clamp(23.75rem, 11.9231rem + 52.5641vw, 75rem);
+  height: 0.75rem;
+}
+.g-48{
+  gap: 3rem;
+}
+.g-3{
+  gap: 0.75rem;
+}
+
+/* .header-menu{
+  font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1.125rem);
+} */
+.header-menu{
+ @apply font-medium text-sm text-(--primary-color) tracking-wide;
+}
+
+.menus{
+  @apply flex items-center  gap-1 px-5 py-1 rounded-full hover:bg-(--Blumine-hover);
+}
+
+.left-btn{
+  background-color: rgba(255, 255, 255, 0.06);
+}
+#navbar-dropdown {
+  display: flex;
+}
+/* media query */
+@media (max-width: 1024px) {
+  .menu-btn {
+    display: none;
+  }
+
+  /* Show navbar-dropdown when .menu-open is added dynamically */
+  .menu-open #navbar-dropdown {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .web-menu {
+    display: none;
+  }
+  #navbar-dropdown {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
