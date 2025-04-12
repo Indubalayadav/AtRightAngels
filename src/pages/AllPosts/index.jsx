@@ -42,6 +42,20 @@ const AllArticles = () => {
   // Fetch Articles posts and announcements data
   const fetchArticlesData = async () => {
     try {
+       
+      if (Number(categoryId) === 16) {
+        console.log("Loading All Magazine posts...");
+      
+        const postRes = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_API_ROOT}/posts?_embed&&categories=16`
+        );
+      
+        setArticlesPosts(postRes.data);
+        setFilteredPosts(postRes.data);
+        return;
+      }
+      
+
       const categoryRes = await axios.get(
         `${import.meta.env.VITE_REACT_APP_API_ROOT}/categories?parent=${categoryId}`
       );
@@ -114,11 +128,11 @@ const AllArticles = () => {
             <div>
         <img src="/images/magazine-img.svg" alt="" />
         </div>
-        <div className="text-base font-normal pt-2">Home / {categoryId == 5 ? 'Articles': categoryId == 10 ? 'Resources' : ''}</div>
+        <div className="text-base font-normal pt-2">Home / {categoryId == 5 ? 'Articles': categoryId == 10 ? 'Resources' : categoryId == 16 ? 'Magazines' : ''}</div>
         <h2 className="text-5xl font-bold mb-4">
             {categoryParam
               ? categories.find((cat) => cat.id === parseInt(categoryParam))?.name
-              : categoryId == 5 ? 'All Articles': categoryId == 10 ? 'All Resources' : ''}
+              : categoryId == 5 ? 'All Articles': categoryId == 10 ? 'All Resources' : categoryId == 16 ? 'All Magazines' : ''}
           </h2>
 
 

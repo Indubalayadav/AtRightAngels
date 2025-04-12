@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
 import axios from "axios";
 import PostCard from "../../components/PostCard";
 import Editor from "../../components/Editor";
@@ -10,13 +11,56 @@ import MagazineVisit from "../../components/MagazineVisit";
 import Informed from "../../components/Informed";
 import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
 
-  const Home = () => {
+const Home = () => {
   const [posts, setPosts] = useState([]);
   const [categoriesId, setCategoriesId] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [resourcesPosts, setResourcesPosts] = useState([]);
   const [magazinePosts, setMagazinesPosts] = useState([]);
   const [magazineVisit, setMagazineVisit] = useState([]);
+
+  const leftAnimationRef = useRef([]);
+  leftAnimationRef.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !leftAnimationRef.current.includes(el)) {
+      leftAnimationRef.current.push(el);
+    }
+  };
+
+  const rightAnimationRef = useRef(null);
+
+  // GSAP animation logic
+  useEffect(() => {
+    // Animation for menu items
+    gsap.fromTo(
+      leftAnimationRef.current,
+      { opacity: 0, y: 400 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        stagger: 0.2,
+        ease: "power1.out",
+      }
+    );
+
+    // Animation for navRight
+    if (rightAnimationRef.current) {
+      gsap.fromTo(
+        rightAnimationRef.current,
+        { opacity: 0, y: -400 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power1.out",
+        }
+      );
+    }
+  }, []);
+
   useEffect(() => {
     fetchArticlesData();
     fetchResourcesData();
@@ -53,7 +97,7 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
 
         const sortedData = filteredPosts.sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        )
+        );
         setPosts(sortedData);
       }
     } catch (error) {
@@ -78,10 +122,10 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
         );
 
         console.log("Post Response:", postRes.data);
-        
+
         const sortedData = postRes.data.sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        )
+        );
         setResourcesPosts(sortedData);
       }
     } catch (error) {
@@ -95,12 +139,11 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
       const categoryRes = await axios.get(
         `${import.meta.env.VITE_REACT_APP_API_ROOT}/posts?_embed&&categories=16`
       );
-     
+
       const sortedData = categoryRes.data.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      )
+      );
       setMagazinesPosts(sortedData);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -123,7 +166,7 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
 
         const sortedData = postRes.data.sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        )
+        );
         setMagazineVisit(sortedData);
       }
     } catch (error) {
@@ -136,9 +179,11 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
       {/* section for showing articles posts and announcements */}
       <div className="max-w-7xl mx-auto px-4 my-25">
         <div className="flex flex-col lg:flex-row gap-6">
-          <div className="w-full lg:w-3/5">
+          <div ref={addToRefs} className="w-full lg:w-3/5">
             {posts.length > 0 ? (
-              <PostCard post={posts[0]} mainSection={true} />
+              <div>
+                <PostCard post={posts[0]} mainSection={true} />
+              </div>
             ) : (
               <ShimmerPlaceHolder variant="main" />
             )}
@@ -147,8 +192,11 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
               {posts.length > 0 ? (
                 posts
                   .filter((_, index) => index === 1 || index === 2)
-                  .map((post) => (
-                    <div key={post.id} className="w-full lg:w-1/2">
+                  .map((post, index) => (
+                    <div
+                      key={post.id}
+                      className="w-full lg:w-1/2"
+                    >
                       <PostCard
                         post={post}
                         mainSection={true}
@@ -158,19 +206,21 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
                   ))
               ) : (
                 <>
-                <div className="w-full lg:w-1/2">
-                  <ShimmerPlaceHolder />
-                </div>
-                <div className="w-full lg:w-1/2">
-                  <ShimmerPlaceHolder />
-                </div>
-              </>
+                  <div className="w-full lg:w-1/2">
+                    <ShimmerPlaceHolder />
+                  </div>
+                  <div className="w-full lg:w-1/2">
+                    <ShimmerPlaceHolder />
+                  </div>
+                </>
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-6 w-full lg:w-2/5">
+          <div ref={rightAnimationRef} className="flex flex-col gap-6 w-full lg:w-2/5">
             <div className="flex flex-col gap-4">
-              <Editor />
+              <div>
+                <Editor />
+              </div>
               <div className="pt-4">
                 <Announcement announcements={announcements} />
               </div>
@@ -179,7 +229,7 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
               {posts.length > 0 ? (
                 posts.slice(3, 6).map((post, index) => (
                   <React.Fragment key={post.id}>
-                    <div className="">
+                    <div>
                       <PostCard
                         post={post}
                         mainSection={false}
@@ -193,7 +243,11 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
                   </React.Fragment>
                 ))
               ) : (
-                <p>No Post Available..</p>
+                <>
+                  <ShimmerPlaceHolder variant="sidebar" />
+                  <ShimmerPlaceHolder variant="sidebar" />
+                  <ShimmerPlaceHolder variant="sidebar" />
+                </>
               )}
             </div>
           </div>
@@ -228,24 +282,26 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
 
                 <div className="flex flex-col md:flex-row gap-6">
                   {resourcesPosts.length > 0 ? (
-                    resourcesPosts.filter((_, index) => index === 1 || index === 2).map((item, index) => (
-                      <div key={index} className="w-full lg:w-1/2">
-                        <ResourcesCard
-                          post={item}
-                          mainSection={true}
-                          sectionVariant="customSection"
-                        />
-                      </div>
-                    ))
+                    resourcesPosts
+                      .filter((_, index) => index === 1 || index === 2)
+                      .map((item, index) => (
+                        <div key={index} className="w-full lg:w-1/2">
+                          <ResourcesCard
+                            post={item}
+                            mainSection={true}
+                            sectionVariant="customSection"
+                          />
+                        </div>
+                      ))
                   ) : (
                     <>
-                    <div className="w-full lg:w-1/2">
-                      <ShimmerPlaceHolder />
-                    </div>
-                    <div className="w-full lg:w-1/2">
-                      <ShimmerPlaceHolder />
-                    </div>
-                  </>
+                      <div className="w-full lg:w-1/2">
+                        <ShimmerPlaceHolder />
+                      </div>
+                      <div className="w-full lg:w-1/2">
+                        <ShimmerPlaceHolder />
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
@@ -274,16 +330,16 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
               </div>
             </div>
             <div className="flex justify-center mt-10">
-              <CustomButton name="ALL RESOURCES" path="/all-posts/10"/>
+              <CustomButton name="ALL RESOURCES" path="/all-posts/10" />
             </div>
           </div>
         </div>
-        </div>
-        <img
-          src="/images/linebar-up-down-multi-color.svg"
-          alt=""
-          className="relative z-1 xl:bottom-[5rem] lg:bottom-[-2.5rem] md:-bottom-[-1.875rem] sm:-bottom[-0.75rem]"
-        />
+      </div>
+      <img
+        src="/images/linebar-up-down-multi-color.svg"
+        alt=""
+        className="relative z-1 xl:bottom-[5rem] lg:bottom-[-2.5rem] md:-bottom-[-1.875rem] sm:-bottom[-0.75rem]"
+      />
 
       {/* section for showing magazine posts */}
       <div className="bg-[--primary-color]">
@@ -309,7 +365,7 @@ import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
             </div>
           </div>
           <div className="flex justify-center mt-6">
-            <CustomButton name="ALL MAGAZINES" />
+            <CustomButton name="ALL MAGAZINES" path="/all-posts/16" />
           </div>
         </div>
       </div>

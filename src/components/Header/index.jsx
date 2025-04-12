@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, Menu } from "lucide-react";
+import gsap from "gsap";
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -7,6 +8,48 @@ const Header = () => {
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const menuItemsRef = useRef([]);
+  menuItemsRef.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !menuItemsRef.current.includes(el)) {
+      menuItemsRef.current.push(el);
+    }
+  };
+
+  const navRightAnimationRef = useRef(null);
+
+  // GSAP animation logic
+  useEffect(() => {
+    // Animation for menu items
+    gsap.fromTo(
+      menuItemsRef.current,
+      { opacity: 0, x: -200 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power1.out",
+      }
+    );
+
+    // Animation for navRight
+    if (navRightAnimationRef.current) {
+      gsap.fromTo(
+        navRightAnimationRef.current,
+        { opacity: 0, x: 200 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power1.out",
+        }
+      );
+    }
+  }, []);
 
   const closeAllDropdowns = (except = "") => {
     if (except !== "articles") setArticlesOpen(false);
@@ -51,13 +94,19 @@ const Header = () => {
           </button>
           <nav className="lg:w-full ">
             <div className={`${menuOpen ? "menu-open" : ""}`}>
-              <div
-                className=" lg:flex gap-6 justify-center"
-               
-              >
-                <div className={`${menuOpen ? "flex" : "hidden"} flex justify-evenly 2xl:gap-16 xl:gap-4 `}  id="navbar-dropdown">
-                  <ul className={`flex ${menuOpen ? 'flex-col':'flex-row'} items-center font-medium header-menu`}>
-                    <li className="relative">
+              <div className=" lg:flex gap-10 justify-center">
+                <div
+                  className={`${
+                    menuOpen ? "flex" : "hidden"
+                  } flex justify-evenly 2xl:gap-16 xl:gap-4 `}
+                  id="navbar-dropdown"
+                >
+                  <ul
+                    className={`flex ${
+                      menuOpen ? "flex-col" : "flex-row"
+                    } items-center font-medium header-menu`}
+                  >
+                    <li ref={addToRefs} className="relative">
                       <button
                         onClick={() => {
                           closeAllDropdowns("articles");
@@ -125,7 +174,7 @@ const Header = () => {
                         </div>
                       )}
                     </li>
-                    <li className="relative">
+                    <li ref={addToRefs} className="relative">
                       <button
                         onClick={() => {
                           closeAllDropdowns("resources");
@@ -193,15 +242,15 @@ const Header = () => {
                         </div>
                       )}
                     </li>
-                    <li>
+                    <li ref={addToRefs}>
                       <a
-                        href="#"
+                        href="/all-posts/16?category"
                         className="block py-2 px-3 text-white hover:bg-(--Blumine-hover) rounded-full"
                       >
                         MAGAZINE ISSUES
                       </a>
                     </li>
-                    <li>
+                    <li ref={addToRefs}>
                       <a
                         href="#"
                         className="block py-2 px-3 text-white hover:bg-(--Blumine-hover) rounded-full"
@@ -210,7 +259,15 @@ const Header = () => {
                       </a>
                     </li>
                   </ul>
-                  <div className="menu-btn flex gap-2">
+                </div>
+                <div
+                  ref={navRightAnimationRef}
+                  className="flex items-center gap-6"
+                >
+                  <div
+                    // ref={navRightAnimationRef}
+                    className="menu-btn flex gap-2"
+                  >
                     <a href="#" className="header-menu menus left-btn">
                       Call for Articles
                     </a>
@@ -218,8 +275,6 @@ const Header = () => {
                       Subscribe for Free
                     </a>
                   </div>
-                </div>
-                <div className="flex items-center gap-6">
                   <div className="relative">
                     <button
                       onClick={() => setSearchOpen(!searchOpen)}
