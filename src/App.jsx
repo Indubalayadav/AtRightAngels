@@ -4,7 +4,8 @@ import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import AllPosts from "./pages/AllPosts";
-
+import Posts from "./pages/Posts";
+import Footer from "./components/Footer";
 function App() {
   return (
     <>
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/all-posts/:categoryId" element={<AllPosts />} />
+        <Route path="/posts/:id" element={<Posts />} />  
         {/* <Route path="*" element={<NotFound />} />
       <Route path="/dashboard/:id" element={<Dashboard />} /> */}
       </Routes>
@@ -42,6 +44,7 @@ function App() {
       <Informed /> */}
       {/* < Articles/> */}
       {/* <Posts /> */}
+      <Footer />
     </>
   );
 }

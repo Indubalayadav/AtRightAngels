@@ -121,9 +121,11 @@ const AllArticles = () => {
   };
 
   return (
-    <div className="bg-(--Blumine) h-78 relative">
-      <img src="/images/allarticleimg.svg" alt="" className="absolute top-14" />
-      <div className=" relative top-9 m-auto lg:w-5xl bg-(--primary-color) p-6 rounded-md">
+  <div className="relative h-full">
+    <div className="bg-(--Blumine) h-78">
+    <img src="/images/allarticleimg.svg" alt="" className="absolute top-14" />
+    </div>
+      <div className=" relative -top-70 m-auto lg:w-5xl bg-(--primary-color) p-6 rounded-md">
         <div className="flex flex-col justify-between pt-20 gap-1">
             <div>
         <img src="/images/magazine-img.svg" alt="" />

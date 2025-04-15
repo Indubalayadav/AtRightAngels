@@ -9,7 +9,10 @@ import CustomButton from "../../components/CustomButton";
 import MagazinePage from "../../components/MagazinePage";
 import MagazineVisit from "../../components/MagazineVisit";
 import Informed from "../../components/Informed";
+import Contact from "../../components/Contact";
 import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
+import Footer from "../../components/Footer";
+
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -31,35 +34,35 @@ const Home = () => {
   const rightAnimationRef = useRef(null);
 
   // GSAP animation logic
-  useEffect(() => {
-    // Animation for menu items
-    gsap.fromTo(
-      leftAnimationRef.current,
-      { opacity: 0, y: 400 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 2,
-        stagger: 0.2,
-        ease: "power1.out",
-      }
-    );
+  // useEffect(() => {
+  //   // Animation for menu items
+  //   gsap.fromTo(
+  //     leftAnimationRef.current,
+  //     { opacity: 0, y: 400 },
+  //     {
+  //       opacity: 1,
+  //       y: 0,
+  //       duration: 2,
+  //       stagger: 0.2,
+  //       ease: "power1.out",
+  //     }
+  //   );
 
-    // Animation for navRight
-    if (rightAnimationRef.current) {
-      gsap.fromTo(
-        rightAnimationRef.current,
-        { opacity: 0, y: -400 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power1.out",
-        }
-      );
-    }
-  }, []);
+  //   // Animation for navRight
+  //   if (rightAnimationRef.current) {
+  //     gsap.fromTo(
+  //       rightAnimationRef.current,
+  //       { opacity: 0, y: -400 },
+  //       {
+  //         opacity: 1,
+  //         y: 0,
+  //         duration: 1,
+  //         stagger: 0.2,
+  //         ease: "power1.out",
+  //       }
+  //     );
+  //   }
+  // }, []);
 
   useEffect(() => {
     fetchArticlesData();
@@ -404,6 +407,7 @@ const Home = () => {
 
       {/* section for showing Informed cards */}
       <Informed />
+      <Contact />
     </>
   );
 };

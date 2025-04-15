@@ -40,6 +40,9 @@
   --BeautyBush: #efbbc2;
   --WineBerry: #661C43;
   --AlbescentWhite: #f2e0c9;
+  --AthensGray: #EDEFF4;
+  --Mercury: 185, 185, 185;
+  --white-color: 255, 255, 255;
 
   
 }
@@ -93,7 +96,7 @@ body{
 }
 
 .left-btn{
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(173, 15, 15, 0.06);
 }
 #navbar-dropdown {
   display: flex;
@@ -101,8 +104,10 @@ body{
 /* media query */
 @media (max-width: 1024px) {
   .menu-btn {
-    display: none;
+    display: flex;
+    
   }
+
 
   /* Show navbar-dropdown when .menu-open is added dynamically */
   .menu-open #navbar-dropdown {
@@ -120,4 +125,29 @@ body{
     gap: 1rem;
     margin-top: 1rem;
   }
+
+  .mob-menu{
+    position: absolute;
+    top: 158px;
+    margin: -12px;
+    background-color: rgba(var(--white-color), 0.9);
+    width: 100%;
+    padding: 20px 10px;
+  }
+
+  .mob-menu ul li a{
+    color: var(--black);
+  }
+
+  .submenus{
+    color: var(--black);
+  }
+
+  .menu-btn {
+    padding-top: 20px;
+  }
+  .left-btn{
+    background: var(--Blumine);
+  }
+
 }

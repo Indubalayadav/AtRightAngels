@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Category from "../../Frontend/Category";
+import Category from "../../components/Category";
+import { useParams } from "react-router-dom";
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState();
+  const {id} = useParams(); // Assuming you want to fetch posts by category ID
   // const VITE_REACT_APP_API_ROOT = import.meta.env.VITE_REACT_APP_API_ROOT;
 
   useEffect(() => {
-    const url = `${import.meta.env.VITE_REACT_APP_API_ROOT}/posts?_embed`;
+    const url = `${import.meta.env.VITE_REACT_APP_API_ROOT}/posts/${id}?_embed`;
 
 
     console.log("API ROOT:", url); // Debug .env
@@ -16,7 +18,7 @@ const Posts = () => {
       .get(url)
       .then((res) => {
         console.log("API Response:", res.data); 
-        setPosts(res.data);
+        setPost(res.data);
       })
       .catch((error) => {
         console.error("API Fetch Error:", error);
@@ -34,22 +36,21 @@ const Posts = () => {
   
 
   return (
-    <div className="flex flex-wrap gap-4 my-6">
-      {posts.length > 0 ? (
-        posts.map((post) => (
-          <div key={post.id}
-            className="rounded-lg overflow-hidden w-1/4"
+    <div className="max-w-7xl mx-auto px-4 my-25 ">
+      {post ? (
+         <div 
+            className=""
           >
             <img
               src={post._embedded?.["wp:featuredmedia"]?.[0]?.source_url}
               alt={post.title.rendered}
-              className={` object-fill w-full h-[385px]`}
+              className="w-full object-cover"
             />
             <div
-              className="p-4 border border-(--WillowBrook)"
+              className="pt-4"
             >
               <Category category={post._embedded?.["wp:term"]?.[0]?.[0]?.name} />
-              <h2 className={` font-bold leading-[30px] mt-3`}>
+              <h2 className={` font-bold md:text-4xl text-lg mt-3`}>
                 {post.title.rendered}
               </h2>
               <p className=" text-sm mt-2 font-medium ">
@@ -57,7 +58,6 @@ const Posts = () => {
               </p>
             </div>
           </div>
-        ))
       ) : (
         <p>Loading posts...</p>
       )}

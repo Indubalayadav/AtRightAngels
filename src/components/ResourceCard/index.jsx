@@ -69,7 +69,7 @@ const ResourcesCard = ({
         </div>
         <h3 className={`${fontSize} font-bold text-gray-900`}>
           <a
-            href="#"
+            href={`/posts/${post.id}`}
             className="hover:text-(--Blumine) hover:underline hover:decoration-(--MineShaft)"
           >
             {post.title.rendered.split(" ").slice(0, splitValue).join(" ") +
@@ -77,7 +77,7 @@ const ResourcesCard = ({
           </a>
         </h3>
         <p className="text-var(--MineShaft) text-sm italic mt-auto">
-          <span className="italic font-medium mt-auto">—{post._embedded?.author?.[0]?.name}</span> • {formatDate(post.date)}
+          <span className="italic font-medium mt-auto"> by {post.acf.author_name}</span> • {formatDate(post.date)}
         </p>
       </div>
     </div>

@@ -12,7 +12,7 @@ const Magazinevisit= ({ post, value }) => {
         {post.title.rendered.split(" ").length > 2 && '...'}</h3>
         <div className="mt-4 group">
           <a
-            href="#"
+            href={`/posts/${post.id}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex justify-center gap-1 bg-white text-black font-bold py-3 rounded-md shadow-md border border-gray-300 hover:bg-gray-100 transition"

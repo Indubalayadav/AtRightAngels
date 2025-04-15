@@ -7,7 +7,7 @@ const Announcement = ({ announcements = [] }) => {
     setActiveIndex(index);
   };
 
-  // If announcements is empty or undefined, show nothing or fallback
+
   if (!announcements.length) {
     return (
       <div className="max-w-full h-[176px] bg-[var(--Fantasy)] rounded p-5 flex items-center justify-center">
@@ -16,7 +16,7 @@ const Announcement = ({ announcements = [] }) => {
     );
   }
 
-  const current = announcements[activeIndex];
+  const current = announcements.slice(0, 3)[activeIndex];
 
   return (
     <div className="max-w-full h-[176px] bg-[var(--Fantasy)] rounded p-5 relative">
@@ -28,7 +28,7 @@ const Announcement = ({ announcements = [] }) => {
       <p className="text-gray-600 text-sm mt-2" dangerouslySetInnerHTML={{ __html: current.excerpt.rendered }} />
 
       <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2 cursor-pointer">
-        {announcements.map((_, index) => (
+      {announcements.slice(0, 3).map((_, index) => (
           <span
             key={index}
             onClick={() => handleDotClick(index)}
