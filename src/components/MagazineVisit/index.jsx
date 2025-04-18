@@ -13,7 +13,6 @@ const Magazinevisit= ({ post, value }) => {
         <div className="mt-4 group">
           <a
             href={`/posts/${post.id}`}
-            target="_blank"
             rel="noopener noreferrer"
             className="flex justify-center gap-1 bg-white text-black font-bold py-3 rounded-md shadow-md border border-gray-300 hover:bg-gray-100 transition"
           >

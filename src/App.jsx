@@ -6,14 +6,19 @@ import Home from "./pages/Home";
 import AllPosts from "./pages/AllPosts";
 import Posts from "./pages/Posts";
 import Footer from "./components/Footer";
+import CallForArticles from "./pages/CallForArticles";
+import FollowMouse from "./components/FollowMouse";
+
 function App() {
   return (
     <>
       <Header />
+      {/* <FollowMouse /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/all-posts/:categoryId" element={<AllPosts />} />
-        <Route path="/posts/:id" element={<Posts />} />  
+        <Route path="/posts/:id" element={<Posts />} /> 
+        <Route path="/call-for-articles" element={<CallForArticles />} /> 
         {/* <Route path="*" element={<NotFound />} />
       <Route path="/dashboard/:id" element={<Dashboard />} /> */}
       </Routes>
@@ -45,6 +50,8 @@ function App() {
       {/* < Articles/> */}
       {/* <Posts /> */}
       <Footer />
+      {/* <FollowMouse /> */}
+      {/* < ArticleForm /> */}
     </>
   );
 }

@@ -8,7 +8,7 @@ const Informed = () => {
           content:
             "Stay informed. Subscribe for free full site access, articles, resources and exclusive downloads",
           buttonText: "SUBSCRIBE FOR FREE",
-          buttonLink: "#",
+          buttonLink: "https://login.salesforce.com/?locale=in",
           bgColor: "bg-(--PixieGreen)",
         },
         {
@@ -16,7 +16,7 @@ const Informed = () => {
           content:
             "Have an article to share or an idea to inspire? Submit your article and become a part of our magazine’s vibrant community.",
           buttonText: "Submit Article",
-          buttonLink: "#",
+          buttonLink: "/call-for-articles",
           bgColor: "bg-(--Bone)",
         },
       ];  

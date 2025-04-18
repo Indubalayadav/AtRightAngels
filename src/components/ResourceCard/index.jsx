@@ -52,7 +52,7 @@ const ResourcesCard = ({
   
 
   return (
-    <div
+    <div 
       className={`${
         sidebarWidget ? "flex flex-col md:flex-row" : ""
       } ${cardWrapperHeight}  max-w-full md:rounded-lg overflow-hidden`}

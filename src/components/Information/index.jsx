@@ -22,7 +22,7 @@ const Information = ({
       {content}
       </p>
       <div className="">
-      <CustomButton name={buttonText} href={buttonLink} />
+      <CustomButton name={buttonText} path={buttonLink} />
       </div>
       </div>
       <div className="absolute top-104 md:block hidden">

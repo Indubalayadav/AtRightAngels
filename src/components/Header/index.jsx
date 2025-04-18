@@ -8,6 +8,8 @@ const Header = () => {
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const modalRef = useRef(null);
 
   const menuItemsRef = useRef([]);
   menuItemsRef.current = [];
@@ -18,8 +20,20 @@ const Header = () => {
     }
   };
 
-  const navRightAnimationRef = useRef(null);
+  // search modal
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setSearchOpen(false);
+        setSearchText("");
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // const navRightAnimationRef = useRef(null);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -33,37 +47,6 @@ const Header = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // GSAP animation logic
-  useEffect(() => {
-    // Animation for menu items
-    gsap.fromTo(
-      menuItemsRef.current,
-      { opacity: 0, x: -200 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power1.out",
-      }
-    );
-
-    // Animation for navRight
-    if (navRightAnimationRef.current) {
-      gsap.fromTo(
-        navRightAnimationRef.current,
-        { opacity: 0, x: 200 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power1.out",
-        }
-      );
-    }
-  }, []);
-
   const closeAllDropdowns = (except = "") => {
     if (except !== "articles") setArticlesOpen(false);
     if (except !== "resources") setResourcesOpen(false);
@@ -71,7 +54,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-(--Blumine) min-h-24 p-3">
+    <header className="bg-(--Blumine) min-h-24 p-3 sticky top-0 z-1 shadow-lg">
       <div className="mw-1280 mx-auto place-items-center">
         <div className="top-0 left-6 absolute 2xl:block hidden">
           <img src="/images/left-design.png" alt="" />
@@ -81,11 +64,13 @@ const Header = () => {
         </div>
         <div className="logo flex items-center justify-center g-3">
           <div>
+            <a href="/">
             <img
               src="/images/site-logo.png"
               alt="Azim Premji University"
               className="site-logo"
             />
+            </a>
           </div>
           <div>
             <img
@@ -126,7 +111,7 @@ const Header = () => {
                         menuOpen ? "flex items-normal" : "hidden items-center"
                       } lg:flex`}
                     >
-                      <li ref={addToRefs} className="relative">
+                      <li className="relative">
                         <button
                           onClick={() => {
                             closeAllDropdowns("articles");
@@ -203,7 +188,7 @@ const Header = () => {
                           </div>
                         )}
                       </li>
-                      <li ref={addToRefs} className="relative">
+                      <li className="relative">
                         <button
                           onClick={() => {
                             closeAllDropdowns("resources");
@@ -280,7 +265,7 @@ const Header = () => {
                           </div>
                         )}
                       </li>
-                      <li ref={addToRefs}>
+                      <li>
                         <a
                           href="/all-posts/16?category"
                           className="block py-2 px-3 text-white hover:bg-(--Blumine-hover) rounded-full"
@@ -288,7 +273,7 @@ const Header = () => {
                           MAGAZINE ISSUES
                         </a>
                       </li>
-                      <li ref={addToRefs}>
+                      <li>
                         <a
                           href="#"
                           className="block py-2 px-3 text-white hover:bg-(--Blumine-hover) rounded-full"
@@ -298,15 +283,15 @@ const Header = () => {
                       </li>
                     </ul>
                   </div>
-                  <div
-                    ref={navRightAnimationRef}
-                    className="flex gap-6 items-center"
-                  >
+                  <div className="flex gap-6 items-center">
                     <div
                       // ref={navRightAnimationRef}
                       className="menu-btn flex gap-2"
                     >
-                      <a href="#" className="header-menu menus left-btn">
+                      <a
+                        href="/call-for-articles"
+                        className="header-menu menus left-btn"
+                      >
                         Call for Articles
                       </a>
                       <a href="#" className="header-menu menus left-btn">
@@ -324,12 +309,30 @@ const Header = () => {
                 <img src="/images/search.png" alt="Search" className="w-5" />
               </button>
               {searchOpen && (
-                <div className="absolute right-100 text-black bg-white p-2 shadow-md rounded mt-2">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-48 p-2 border rounded"
-                  />
+                <div className="fixed inset-0 bg-(--teal) bg-opacity-70 z-50 flex items-center justify-center">
+                  <div
+                    ref={modalRef}
+                    className=" w-[70%] relative"
+                  >
+                    {searchText && (
+                      <button
+                        onClick={() => {
+                          setSearchText("");
+                        }}
+                        className="absolute top-3 right-4 "
+                      >
+                        <img src="/images/cross-btn-img.svg" alt="cross-btn" className="w-8 h-8"/>
+                      </button>
+                    )}
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      className="w-full border-b-2 text-(--primary-color) border-(--primary-color) text-3xl font-semibold p-1 focus:outline-none text-center"
+                      autoFocus
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
+                  </div>
                 </div>
               )}
             </div>

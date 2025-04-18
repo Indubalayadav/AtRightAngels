@@ -1,13 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import '@fortawesome/fontawesome-free/css/all.min.css';
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
-@import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
 #root {
   --primary-color: #ffffff;
+  --red: #EB6F6F;
   --black: #212121;
   --Blumine: #1f4d7c;
   --Blumine-hover: #143d66; 
@@ -30,6 +30,7 @@
   --Bone: #E8D6C9;
   --MineShaft: #212121;
   --Emperor: #555555;
+  --Nevada: #697077;
   --WillowBrook: #DDEEDD;
   --Denim: #1968CF;
   --MintTulip: #C3E3F2;
@@ -43,12 +44,12 @@
   --AthensGray: #EDEFF4;
   --Mercury: 185, 185, 185;
   --white-color: 255, 255, 255;
+  --submit-color: 3, 2, 2;
+  --teal: #008080;
 
-  
 }
 
 body{
-
   font-family: "Noto Sans", sans-serif;
 }
 
@@ -83,6 +84,14 @@ body{
 .g-3{
   gap: 0.75rem;
 }
+.submit-btn{
+  background-color: rgba(3, 2, 2, 0.06);
+  border-radius: 0.400rem;
+}
+
+.footer:hover{
+  text-decoration: underline
+}
 
 /* .header-menu{
   font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1.125rem);
@@ -92,7 +101,7 @@ body{
 }
 
 .menus{
-  @apply flex items-center  gap-1 px-5 py-1 rounded-full hover:bg-(--Blumine-hover);
+  @apply flex items-center  gap-1 px-5 py-2 rounded-full hover:bg-(--Blumine-hover);
 }
 
 .left-btn{
@@ -104,11 +113,8 @@ body{
 /* media query */
 @media (max-width: 1024px) {
   .menu-btn {
-    display: flex;
-    
+    display: flex; 
   }
-
-
   /* Show navbar-dropdown when .menu-open is added dynamically */
   .menu-open #navbar-dropdown {
     display: flex;
@@ -128,7 +134,7 @@ body{
 
   .mob-menu{
     position: absolute;
-    top: 158px;
+    top: 153px;
     margin: -12px;
     background-color: rgba(var(--white-color), 0.9);
     width: 100%;
