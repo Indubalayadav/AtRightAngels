@@ -9,7 +9,7 @@
   --primary-color: #ffffff;
   --red: #EB6F6F;
   --black: #212121;
-  --Blumine: #1f4d7c;
+  --Blumine: #1d4d7c;
   --Blumine-hover: #143d66; 
   --Blumine-bg: #14446f;
   --SurfCrest: #C3DFC6;
@@ -30,9 +30,10 @@
   --Bone: #E8D6C9;
   --MineShaft: #212121;
   --Emperor: #555555;
-  --Nevada: #697077;
+  --Nevada: #f3f3f3;
   --WillowBrook: #DDEEDD;
   --Denim: #1968CF;
+--Victoria: #593C77
   --MintTulip: #C3E3F2;
   --Linen: #f8ecd8;
   --Twilight: #E6D6DF;
@@ -46,6 +47,7 @@
   --white-color: 255, 255, 255;
   --submit-color: 3, 2, 2;
   --teal: #008080;
+  --contact-input: #F2F2F2;
 
 }
 
@@ -88,6 +90,7 @@ body{
   background-color: rgba(3, 2, 2, 0.06);
   border-radius: 0.400rem;
 }
+
 
 .footer:hover{
   text-decoration: underline

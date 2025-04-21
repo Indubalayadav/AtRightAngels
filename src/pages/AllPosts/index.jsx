@@ -131,7 +131,7 @@ const AllArticles = () => {
           className="absolute top-14"
         />
       </div>
-      <div className=" relative -top-70 m-auto lg:w-5xl bg-(--primary-color) p-6 rounded-md">
+      <div className=" relative -top-60 m-auto lg:w-5xl bg-(--primary-color) p-6 rounded-md">
         <div className="flex flex-col justify-between pt-20 gap-1">
           <div>
             <img src="/images/magazine-img.svg" alt="" />

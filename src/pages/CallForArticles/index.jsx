@@ -16,7 +16,7 @@ const index = () => {
           />
         </div>
 
-        <div className="relative -top-70 m-auto lg:w-5xl bg-(--primary-color)  p-6 rounded-md">
+        <div className="relative -top-60 m-auto lg:w-5xl bg-(--primary-color)  p-6 rounded-md">
           <div className="flex flex-col justify-between md:py-20 py-8 gap-8 md:px-20">
             <div>
               <img src="/images/magazine-img.svg" alt="" />
@@ -42,6 +42,7 @@ const index = () => {
               <CustomButton
                 name="Read Magazine Guidelines"
                 variant="outlined"
+                path={"/magazine-guidelines"}
               />
             </div>
           </div>

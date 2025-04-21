@@ -79,7 +79,7 @@ const Footer = () => {
               <h4 className="font-bold tracking-widest text-sm mb-4">MORE</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="" className="footer">
+                  <a href="/about-us" className="footer">
                     About Us
                   </a>
                 </li>
@@ -94,12 +94,12 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="footer">
+                  <a href="/magazine-guidelines" className="footer">
                     Magazine Guidelines
                   </a>
                 </li>
                 <li>
-                  <a href="" className="footer">
+                  <a href="/contact" className="footer">
                     Contact Us
                   </a>
                 </li>

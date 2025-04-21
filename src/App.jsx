@@ -7,7 +7,11 @@ import AllPosts from "./pages/AllPosts";
 import Posts from "./pages/Posts";
 import Footer from "./components/Footer";
 import CallForArticles from "./pages/CallForArticles";
+import Search from "./pages/Search";
 import FollowMouse from "./components/FollowMouse";
+import AboutUs from "./pages/AboutUs";
+import MagazineGuidelines from "./pages/MagazineGuidelines";
+import ContactUs from "./pages/ContactUs";  
 
 function App() {
   return (
@@ -19,6 +23,10 @@ function App() {
         <Route path="/all-posts/:categoryId" element={<AllPosts />} />
         <Route path="/posts/:id" element={<Posts />} /> 
         <Route path="/call-for-articles" element={<CallForArticles />} /> 
+        <Route path="/search" element={<Search />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/magazine-guidelines" element={<MagazineGuidelines />} />
+        <Route path="/contact" element={<ContactUs />} />
         {/* <Route path="*" element={<NotFound />} />
       <Route path="/dashboard/:id" element={<Dashboard />} /> */}
       </Routes>

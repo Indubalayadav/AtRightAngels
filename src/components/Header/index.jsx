@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, Menu } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 
 const Header = () => {
@@ -10,6 +11,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const modalRef = useRef(null);
+  const navigate = useNavigate();
 
   const menuItemsRef = useRef([]);
   menuItemsRef.current = [];
@@ -53,8 +55,16 @@ const Header = () => {
     if (except !== "language") setLanguageOpen(false);
   };
 
+  const handleModalSearch = () => {
+    if (searchText.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchText.trim())}`);
+      setSearchOpen(false);
+      setSearchText("");
+    }
+  };
+
   return (
-    <header className="bg-(--Blumine) min-h-24 p-3 sticky top-0 z-1 shadow-lg">
+    <header className="bg-(--Blumine) min-h-24 p-3 sticky top-0 z-1">
       <div className="mw-1280 mx-auto place-items-center">
         <div className="top-0 left-6 absolute 2xl:block hidden">
           <img src="/images/left-design.png" alt="" />
@@ -65,11 +75,11 @@ const Header = () => {
         <div className="logo flex items-center justify-center g-3">
           <div>
             <a href="/">
-            <img
-              src="/images/site-logo.png"
-              alt="Azim Premji University"
-              className="site-logo"
-            />
+              <img
+                src="/images/site-logo.png"
+                alt="Azim Premji University"
+                className="site-logo"
+              />
             </a>
           </div>
           <div>
@@ -142,11 +152,11 @@ const Header = () => {
                             className={`${
                               menuOpen
                                 ? "relative  bg-transparent shadow-none w-full"
-                                : "absolute z-10 top-14 bg-white shadow-sm w-44"
+                                : "absolute z-10 top-12 bg-white shadow-lg w-44"
                             }`}
                           >
                             <ul
-                              className={`py-2 text-sm ${
+                              className={`py-4 px-2 text-sm flex flex-col gap-4 ${
                                 menuOpen
                                   ? "text-white flex flex-col gap-2 bg-[rgba(var(--Mercury),0.6)]"
                                   : "text-gray-700 dark:text-gray-400"
@@ -219,11 +229,11 @@ const Header = () => {
                             className={`${
                               menuOpen
                                 ? "relative bg-transparent shadow-none w-full"
-                                : "absolute z-10 top-14 bg-white shadow-sm w-44"
+                                : "absolute z-10 top-12 bg-white shadow-lg w-44"
                             }`}
                           >
                             <ul
-                              className={`py-2 text-sm ${
+                              className={`py-2 px-2 text-sm flex flex-col gap-4 ${
                                 menuOpen
                                   ? "text-white flex flex-col gap-2 bg-[rgba(var(--Mercury),0.6)]"
                                   : "text-gray-700 dark:text-gray-400"
@@ -275,7 +285,7 @@ const Header = () => {
                       </li>
                       <li>
                         <a
-                          href="#"
+                          href="/about-us"
                           className="block py-2 px-3 text-white hover:bg-(--Blumine-hover) rounded-full"
                         >
                           ABOUT US
@@ -309,29 +319,46 @@ const Header = () => {
                 <img src="/images/search.png" alt="Search" className="w-5" />
               </button>
               {searchOpen && (
-                <div className="fixed inset-0 bg-(--teal) bg-opacity-70 z-50 flex items-center justify-center">
-                  <div
-                    ref={modalRef}
-                    className=" w-[70%] relative"
-                  >
+                <div className="fixed inset-0 bg-(--Blumine) bg-opacity-70 z-50 flex items-center justify-center">
+                  <div ref={modalRef} className=" w-[70%] relative">
                     {searchText && (
                       <button
                         onClick={() => {
                           setSearchText("");
                         }}
-                        className="absolute top-3 right-4 "
+                        className="absolute top-1/2 right-[60px] transform -translate-y-1/2 z-10"
                       >
-                        <img src="/images/cross-btn-img.svg" alt="cross-btn" className="w-8 h-8"/>
+                        <img
+                          src="/images/search-btn.png"
+                          alt="cross-btn"
+                          className="w-5 h-5"
+                        />
                       </button>
                     )}
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      className="w-full border-b-2 text-(--primary-color) border-(--primary-color) text-3xl font-semibold p-1 focus:outline-none text-center"
-                      autoFocus
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                    />
+                    <div className="flex items-center justify-between w-full rounded-md bg-white/10 border border-white/20">
+                    <div className="flex items-center py-2 px-4">
+                      <img
+                        src="/images/search.png"
+                        alt="Search"
+                        className="w-4  mr-2 opacity-70"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Search for"
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        className=" bg-transparent text-(--primary-color) placeholder-(--primary-color) text-xl focus:outline-none"
+                        autoFocus
+                      />
+                      </div>
+                      <button className="bg-(--Blumine) rounded px-3 py-2 h-full" onClick={handleModalSearch}>
+                        <img
+                          src="/images/search.png"
+                          alt="Search"
+                          className="w-5 h-full opacity-70"
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -347,7 +374,7 @@ const Header = () => {
                 English <ChevronDown size={16} />
               </button>
               {languageOpen && (
-                <div className="absolute bg-white text-black rounded shadow-md mt-2 p-2">
+                <div className="absolute top-45 bg-white text-black rounded shadow-md  p-4">
                   <a href="#" className="block px-4 py-2 hover:bg-gray-200">
                     ಕನ್ನಡ
                   </a>
