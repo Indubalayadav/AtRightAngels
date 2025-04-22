@@ -11,7 +11,7 @@ const Announcement = ({ announcements = [] }) => {
   if (!announcements.length) {
     return (
       <div className="max-w-full h-[176px] bg-[var(--Fantasy)] rounded p-5 flex items-center justify-center">
-        <p className="text-sm text-gray-500">No announcements available.</p>
+        <p className="text-sm text-(--Emperor)">No announcements available.</p>
       </div>
     );
   }
@@ -24,8 +24,8 @@ const Announcement = ({ announcements = [] }) => {
         ANNOUNCEMENT
       </span>
 
-      <h3 className="text-lg font-bold text-gray-900 mt-4" dangerouslySetInnerHTML={{ __html: current.title.rendered }} />
-      <p className="text-gray-600 text-sm mt-2" dangerouslySetInnerHTML={{ __html: current.excerpt.rendered }} />
+      <h3 className="text-lg font-bold text-(--MineShaft) mt-4" dangerouslySetInnerHTML={{ __html: current.title.rendered }} />
+      <p className="text-(--Emperor) text-sm mt-2" dangerouslySetInnerHTML={{ __html: current.excerpt.rendered }} />
 
       <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2 cursor-pointer">
       {announcements.slice(0, 3).map((_, index) => (

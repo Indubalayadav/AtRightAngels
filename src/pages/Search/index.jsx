@@ -89,7 +89,7 @@ const Search = () => {
           className="absolute top-14"
         />
       </div>
-      <div className="relative -top-60 m-auto lg:w-5xl bg-white p-6 rounded-md">
+      <div className="relative -top-60 m-auto lg:w-5xl bg-(--primary-color) p-6 rounded-md">
         <div className="flex flex-col justify-between pt-20 gap-1">
           <div>
             <img src="/images/magazine-img.svg" alt="" />
@@ -97,7 +97,7 @@ const Search = () => {
           <h3 className="text-5xl font-bold mb-4">Search <span className="font-normal">"{searchParam}"</span></h3>
 
           <div className="flex flex-col lg:flex-row gap-4 h-12">
-            <div className="flex flex-1 items-center shadow-lg border border-gray-300 rounded-md pl-3">
+            <div className="flex flex-1 items-center shadow-lg border border-(--Nevada)  rounded-md pl-3">
               <input
                 type="text"
                 placeholder="Search for..."
@@ -108,23 +108,23 @@ const Search = () => {
               {search && (
                 <button
                   onClick={() => setSearch("")}
-                  className="text-black px-2"
+                  className="text-(--black) px-2"
                 >
                   <i className="fa-solid fa-xmark"></i>
                 </button>
               )}
               <button
                 onClick={handleSearch}
-                className="px-4 py-2 bg-[#1E487A] rounded-r-md h-full"
+                className="px-4 py-2 bg-(--Blumine) rounded-r-md h-full"
               >
-                <i className="fa-solid fa-magnifying-glass text-white"></i>
+                <i className="fa-solid fa-magnifying-glass text-(--primary-color)"></i>
               </button>
             </div>
 
             {(search || selectedCategories.length > 0) && (
               <button
                 onClick={handleClearAll}
-                className="ml-4 text-blue-600 hover:underline"
+                className="ml-4 text-(--Denim) hover:underline"
               >
                 Clear All
               </button>
@@ -164,7 +164,7 @@ const Search = () => {
                       <h3 className="font-semibold text-lg">
                         {item.title.rendered}
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-(--Emperor)">
                         by <span>{item.acf?.author_name}</span> •{" "}
                         {formatDate(item.date)}
                       </p>

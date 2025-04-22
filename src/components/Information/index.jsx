@@ -1,14 +1,27 @@
 import React from "react";
 import CustomButton from "../CustomButton";
+import { useNavigate } from "react-router-dom";
 
 
 const Information = ({
-  bgColor = "bg-(--GreenWhite)", // default background
-  title = "STAY INFORMED",
-  content = "Stay informed. Subscribe for free full site access, articles, resources and exclusive downloads",
-  buttonText = "SUBSCRIBE FOR FREE",
-  buttonLink = "#",
+  bgColor , // default background
+  title ,
+  content ,
+  buttonText ,
+  buttonLink
+  
 }) => {
+  const navigate = useNavigate();
+  const handleOnClick = (path) => {
+    if (path) {
+      if (path.includes("https")) {
+        window.open(path, "_blank");
+      } else {
+        navigate(path);
+      }
+    }
+  }
+
   return (
     <div className={`${bgColor} rounded-xl md:w-146 h-120 w-full text-center relative overflow-hidden`}>
       <div>
@@ -22,7 +35,7 @@ const Information = ({
       {content}
       </p>
       <div className="">
-      <CustomButton name={buttonText} path={buttonLink} />
+      <CustomButton onClick={() => handleOnClick(buttonLink)} className="cursor-pointer">{buttonText} <i className="fas fa-arrow-right ml-2"></i></CustomButton>
       </div>
       </div>
       <div className="absolute top-104 md:block hidden">

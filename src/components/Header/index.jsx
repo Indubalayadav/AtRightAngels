@@ -99,7 +99,7 @@ const Header = () => {
           <div className="">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="block lg:hidden text-white"
+              className="block lg:hidden text-(--primary-color)"
             >
               <Menu size={28} />
             </button>
@@ -152,20 +152,20 @@ const Header = () => {
                             className={`${
                               menuOpen
                                 ? "relative  bg-transparent shadow-none w-full"
-                                : "absolute z-10 top-12 bg-white shadow-lg w-44"
+                                : "absolute z-10 top-12 bg-(--primary-color) shadow-lg w-44"
                             }`}
                           >
                             <ul
                               className={`py-4 px-2 text-sm flex flex-col gap-4 ${
                                 menuOpen
-                                  ? "text-white flex flex-col gap-2 bg-[rgba(var(--Mercury),0.6)]"
-                                  : "text-gray-700 dark:text-gray-400"
+                                  ? "text-(--primary-color) flex flex-col gap-2 bg-[rgba(var(--Mercury),0.6)]"
+                                  : "text-(--Emperor) dark:text-gray-400"
                               }`}
                             >
                               <li>
                                 <a
                                   href="/all-posts/5?category=8"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-(--primary-color)"
                                 >
                                   FEATURES
                                 </a>
@@ -173,7 +173,7 @@ const Header = () => {
                               <li>
                                 <a
                                   href="/all-posts/5?category=6"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-(--primary-color)"
                                 >
                                   CLASSROOM
                                 </a>
@@ -181,7 +181,7 @@ const Header = () => {
                               <li>
                                 <a
                                   href="/all-posts/5?category=7"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-(--primary-color)"
                                 >
                                   THE JOY OF MATHMATICS
                                 </a>
@@ -189,7 +189,7 @@ const Header = () => {
                               <li>
                                 <a
                                   href="/all-posts/5?category=9"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-(--primary-color)"
                                 >
                                   REVIEWS
                                 </a>
@@ -229,20 +229,20 @@ const Header = () => {
                             className={`${
                               menuOpen
                                 ? "relative bg-transparent shadow-none w-full"
-                                : "absolute z-10 top-12 bg-white shadow-lg w-44"
+                                : "absolute z-10 top-12 bg-(--primary-color) shadow-lg w-44"
                             }`}
                           >
                             <ul
                               className={`py-2 px-2 text-sm flex flex-col gap-4 ${
                                 menuOpen
-                                  ? "text-white flex flex-col gap-2 bg-[rgba(var(--Mercury),0.6)]"
-                                  : "text-gray-700 dark:text-gray-400"
+                                  ? "text-(--primary-color) flex flex-col gap-2 bg-[rgba(var(--Mercury),0.6)]"
+                                  : "text-(--Emperor) dark:text-(--Emperor)"
                               }`}
                             >
                               <li>
                                 <a
                                   href="/all-posts/10?category=11"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-white"
                                 >
                                   PULLOUTS
                                 </a>
@@ -250,7 +250,7 @@ const Header = () => {
                               <li>
                                 <a
                                   href="/all-posts/10?category=14"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-(--primary-color)"
                                 >
                                   TEAROURS
                                 </a>
@@ -258,7 +258,7 @@ const Header = () => {
                               <li>
                                 <a
                                   href="/all-posts/10?category=13"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-(--primary-color)"
                                 >
                                   WORKSHEETS
                                 </a>
@@ -266,7 +266,7 @@ const Header = () => {
                               <li>
                                 <a
                                   href="/all-posts/10?category=12"
-                                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                  className="block px-4 py-2 hover:bg-(--Nevada) dark:hover:bg-(--Emperor) dark:hover:text-(--primary-color)"
                                 >
                                   POSTERS
                                 </a>
@@ -278,7 +278,7 @@ const Header = () => {
                       <li>
                         <a
                           href="/all-posts/16?category"
-                          className="block py-2 px-3 text-white hover:bg-(--Blumine-hover) rounded-full"
+                          className="block py-2 px-3 text-(--primary-color) hover:bg-(--Blumine-hover) rounded-full"
                         >
                           MAGAZINE ISSUES
                         </a>
@@ -286,7 +286,7 @@ const Header = () => {
                       <li>
                         <a
                           href="/about-us"
-                          className="block py-2 px-3 text-white hover:bg-(--Blumine-hover) rounded-full"
+                          className="block py-2 px-3 text-(--primary-color) hover:bg-(--Blumine-hover) rounded-full"
                         >
                           ABOUT US
                         </a>
@@ -304,7 +304,7 @@ const Header = () => {
                       >
                         Call for Articles
                       </a>
-                      <a href="#" className="header-menu menus left-btn">
+                      <a href="https://login.salesforce.com/?locale=in" className="header-menu menus left-btn">
                         Subscribe for Free
                       </a>
                     </div>
@@ -369,16 +369,16 @@ const Header = () => {
                   closeAllDropdowns("language");
                   setLanguageOpen((prev) => !prev);
                 }}
-                className="header-menu flex items-center text-white gap-1 "
+                className="header-menu flex items-center text-(--primary-color) gap-1 "
               >
                 English <ChevronDown size={16} />
               </button>
               {languageOpen && (
-                <div className="absolute top-45 bg-white text-black rounded shadow-md  p-4">
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-200">
+                <div className="absolute top-45 bg-(--primary-color) text-(--black) rounded shadow-md  p-4">
+                  <a href="#" className="block px-4 py-2 hover:bg-(--Nevada)">
                     ಕನ್ನಡ
                   </a>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-200">
+                  <a href="#" className="block px-4 py-2 hover:bg-(--Nevada)">
                     हिन्दी
                   </a>
                 </div>

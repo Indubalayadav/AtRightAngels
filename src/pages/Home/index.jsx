@@ -13,6 +13,8 @@ import Contact from "../../components/Contact";
 import ShimmerPlaceHolder from "../../components/ShimmerPlaceHolder";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getArticlesData, getMagazineData } from "../../services/apiServices";
+import { useNavigate } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
@@ -22,6 +24,7 @@ const Home = () => {
   const [resourcesPosts, setResourcesPosts] = useState([]);
   const [magazinePosts, setMagazinesPosts] = useState([]);
   const [magazineVisit, setMagazineVisit] = useState([]);
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const magazineSectionRef = useRef(null);
   const magazineCardRefs = useRef([]);
@@ -237,38 +240,13 @@ const Home = () => {
     return () => ctx.revert();
   }, [posts]);
 
-  // Fetch Articles posts and announcements data
+  // // Fetch Articles posts and announcements data
   const fetchArticlesData = async () => {
     try {
-      const categoryRes = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_ROOT}/categories?parent=5`
-      );
-      const childCategoryIds = categoryRes.data.map((cat) => cat.id);
-
-      if (childCategoryIds.length > 0) {
-        const idsQuery = childCategoryIds.join(",");
-        const postRes = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_APP_API_ROOT
-          }/posts?_embed&&categories=${idsQuery}`
-        );
-
-        console.log("Post Response:", postRes);
-        // Filter posts with ANNOUNCEMENT category (ID 12)
-        const announcementPosts = postRes.data.filter((post) =>
-          post.categories.includes(15)
-        );
-        // console.log("Announcement Posts:", announcementPosts);
-        setAnnouncements(announcementPosts);
-        const filteredPosts = postRes.data.filter(
-          (post) => !post.categories.includes(15)
-        );
-
-        const sortedData = filteredPosts.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        setPosts(sortedData);
-      }
+      const articles = await getArticlesData(null, 5);
+        setPosts(articles.sortedData);
+        setCategoriesId(articles.categoryIds);
+        setAnnouncements(articles.announcementPosts);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -277,26 +255,10 @@ const Home = () => {
   // Fetch Resources posts data
   const fetchResourcesData = async () => {
     try {
-      const categoryRes = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_ROOT}/categories?parent=10`
-      );
-      const childCategoryIds = categoryRes.data.map((cat) => cat.id);
-
-      if (childCategoryIds.length > 0) {
-        const idsQuery = childCategoryIds.join(",");
-        const postRes = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_APP_API_ROOT
-          }/posts?_embed&&categories=${idsQuery}`
-        );
-
-        console.log("Post Response:", postRes.data);
-
-        const sortedData = postRes.data.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        setResourcesPosts(sortedData);
-      }
+      const resource = await getArticlesData(null, 10);
+      console.log("Fetched Resources:", resource); // Check the structure
+        setResourcesPosts(resource.sortedData);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -305,14 +267,8 @@ const Home = () => {
   // Fetch Magazine posts data
   const fetchMagazineData = async () => {
     try {
-      const categoryRes = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_ROOT}/posts?_embed&&categories=16`
-      );
-
-      const sortedData = categoryRes.data.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
-      setMagazinesPosts(sortedData);
+      const magazine = await getMagazineData(16);
+        setMagazinesPosts(magazine);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -320,24 +276,9 @@ const Home = () => {
 
   const fetchMagazineVisitData = async () => {
     try {
-      const categoryRes = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_ROOT}/categories?parent=17`
-      );
-      const childCategoryIds = categoryRes.data.map((cat) => cat.id);
-
-      if (childCategoryIds.length > 0) {
-        const idsQuery = childCategoryIds.join(",");
-        const postRes = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_APP_API_ROOT
-          }/posts?_embed&&categories=${idsQuery}`
-        );
-
-        const sortedData = postRes.data.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        setMagazineVisit(sortedData);
-      }
+      const magazinevisit = await getArticlesData(null, 17);
+        setMagazineVisit(magazinevisit.sortedData);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -436,7 +377,7 @@ const Home = () => {
           </div>
         </div>
         <div className="flex justify-center mt-10">
-          <CustomButton name="ALL ARTICLES" path="/all-posts/5" />
+          <CustomButton onClick={() => navigate('/all-posts/5')} className="cursor-pointer">ALL ARTICLES <i className="fas fa-arrow-right ml-2"></i></CustomButton>
         </div>
       </div>
 
@@ -502,7 +443,7 @@ const Home = () => {
                         />
                       </div>
 
-                      {index < resourcesPosts.length - 1 && (
+                      {index < resourcesPosts.slice(3, 8).length - 1 && (
                         <div>
                           <img src="/images/resources-line.png" alt="" />
                         </div>
@@ -515,7 +456,7 @@ const Home = () => {
               </div>
             </div>
             <div className="flex justify-center mt-10">
-              <CustomButton name="ALL RESOURCES" path="/all-posts/10" />
+            <CustomButton onClick={() => navigate('/all-posts/10')} className="cursor-pointer">ALL RESOURCES <i className="fas fa-arrow-right ml-2"></i></CustomButton>
             </div>
           </div>
         </div>
@@ -553,8 +494,8 @@ const Home = () => {
               )}
             </div>
           </div>
-          <div className="flex justify-center mt-6">
-            <CustomButton name="ALL MAGAZINES" path="/all-posts/16" />
+          <div className="flex justify-center mt-8">
+          <CustomButton onClick={() => navigate('/all-posts/16')} className="cursor-pointer">ALL MAGAZINES <i className="fas fa-arrow-right ml-2"></i></CustomButton>
           </div>
         </div>
       </div>

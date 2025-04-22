@@ -12,6 +12,7 @@ import FollowMouse from "./components/FollowMouse";
 import AboutUs from "./pages/AboutUs";
 import MagazineGuidelines from "./pages/MagazineGuidelines";
 import ContactUs from "./pages/ContactUs";  
+import Author from "./pages/Author";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/magazine-guidelines" element={<MagazineGuidelines />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/authors" element={<Author />} />
         {/* <Route path="*" element={<NotFound />} />
       <Route path="/dashboard/:id" element={<Dashboard />} /> */}
       </Routes>

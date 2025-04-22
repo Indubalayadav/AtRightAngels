@@ -3,8 +3,10 @@ import CustomButton from "../../components/CustomButton";
 import Input from "../../components/UI/Input";
 import Informed from "../../components/Informed";
 import ArticleForm from "../../components/ArticleForm";
+import { useNavigate } from "react-router-dom";
 
 const index = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="relative h-full">
@@ -39,11 +41,8 @@ const index = () => {
               submissions.
             </p>
             <div>
-              <CustomButton
-                name="Read Magazine Guidelines"
-                variant="outlined"
-                path={"/magazine-guidelines"}
-              />
+              <CustomButton variant="outline" onClick={()=> navigate('/magazine-guidelines')}>Read Magazine Guidelines <i className="fas fa-arrow-right ml-2"/></CustomButton>
+              
             </div>
           </div>
           <img src="/images/callforarcticle-img.png" alt="" />

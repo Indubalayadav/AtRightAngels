@@ -1,38 +1,34 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { cn } from '../../utils'; // optional: utility for class merging if you're using one
 
-const CustomButton = ({ name, submit = false, path, variant = "filled" }) => {
-  const navigate = useNavigate();
+const CustomButton = ({
+  children,
+  onClick,
+  type = 'button',
+  variant = 'primary',
+  className = '',
+  disabled = false,
+  ...props
+}) => {
+  const baseStyles = 'px-6 py-2 font-medium transition-all duration-300';
+  const variants = {
+    primary: 'bg-(--Blumine) rounded text-(--primary-color)',
+    secondary: 'bg-gray-200 rounded text-gray-800 hover:bg-gray-300',
+    outline: 'text-base font-medium tracking-normal border border-(--black) text-(--black)  hover:bg-(--Blumine) hover:text-white',
+  };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (path) navigate(path);
-  }
-
-    const baseClasses =
-      "text-sm font-medium  px-6 py-3 rounded flex items-center gap-2 transition tracking-[1px] h-12 cursor-pointer";
-
-    // Variant styles
-    const variantClasses =
-      variant === "outlined"
-        ? " text-base font-medium tracking-normal border border-(--black) text-(--black)  hover:bg-(--Blumine) hover:text-white"
-        : submit
-        ? "bg-gray-800 hover:bg-gray-900 text-(--primary-color)"
-        : "bg-(--Blumine) text-(--primary-color)";
-
- 
   return (
     <button
-    className={`${baseClasses} ${variantClasses}`}
-      onClick={onSubmit}
-      type="submit"
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={cn(baseStyles, variants[variant], className)}
+      {...props}
     >
-      {name}
-      <span className="text-xl font-normal">
-        <i className="fas fa-arrow-right"></i>
-      </span>
+      {children}
     </button>
   );
 };
 
 export default CustomButton;
+

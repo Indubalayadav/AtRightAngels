@@ -84,12 +84,12 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="" className="footer">
+                  <a href="/authors" className="footer">
                     Authors
                   </a>
                 </li>
                 <li>
-                  <a href="" className="footer">
+                  <a href="/all-posts/16" className="footer">
                     Magazines Issues
                   </a>
                 </li>

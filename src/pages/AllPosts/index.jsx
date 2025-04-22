@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import PostCard from "../../components/PostCard";
+import { getArticlesData, getCategoryData } from "../../services/apiServices";
 
 const AllArticles = () => {
   const [search, setSearch] = useState("");
@@ -32,7 +33,6 @@ const AllArticles = () => {
     //   params.set("categories", selectedCategories.join(","));
     // }
     // if (selectedTags.length) params.set("tags", selectedTags.join(","));
-
     // // navigate(`/articles?${params.toString()}`);
     // filterPosts();
   };
@@ -54,34 +54,56 @@ const AllArticles = () => {
         return;
       }
 
-      const categoryRes = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_API_ROOT
-        }/categories?parent=${categoryId}`
-      );
-      const childCategoryIds = categoryRes.data.map((cat) => cat.id);
-      setCategories(categoryRes.data);
+      // const categoryRes = await axios.get(
+      //   `${
+      //     import.meta.env.VITE_REACT_APP_API_ROOT
+      //   }/categories?parent=${categoryId}`
+      // );
+      // const childCategoryIds = categoryRes.data.map((cat) => cat.id);
+      // setCategories(categoryRes.data);
 
-      if (childCategoryIds.length > 0) {
-        const idsQuery = categoryParam
-          ? categoryParam
-          : childCategoryIds.join(",");
-        const postRes = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_APP_API_ROOT
-          }/posts?_embed&&categories=${idsQuery}`
+      // if (childCategoryIds.length > 0) {
+      //   const idsQuery = categoryParam
+      //     ? categoryParam
+      //     : childCategoryIds.join(",");
+      //   const postRes = await axios.get(
+      //     `${
+      //       import.meta.env.VITE_REACT_APP_API_ROOT
+      //     }/posts?_embed&&categories=${idsQuery}`
+      //   );
+
+      //   if (!categoryParam) {
+      //     const filteredPosts = postRes.data.filter(
+      //       (post) => !post.categories.includes(15)
+      //     );
+
+      //   setArticlesPosts(filteredPosts);
+      //   setFilteredPosts(filteredPosts);
+      // } else {
+      //   setArticlesPosts(postRes.data);
+      //   setFilteredPosts(postRes.data);
+      // }
+      // }
+      // const id = categoryParam ? categoryParam : categoryId;
+      const categoryRes = await getCategoryData();
+      const posts = await getArticlesData(categoryParam, categoryId);
+      console.log("Post Response:", posts);
+      const categoryFilterData = categoryRes.filter((cat) =>
+        posts.sortedData.some((post) => post.categories.includes(cat.id))
+      );
+
+      if (!categoryParam) {
+        const filteredPosts = posts.sortedData.filter(
+          (post) => !post.categories.includes(15)
         );
 
-        if (!categoryParam) {
-          const filteredPosts = postRes.data.filter(
-            (post) => !post.categories.includes(15)
-          );
-          setArticlesPosts(filteredPosts);
-          setFilteredPosts(filteredPosts);
-        } else {
-          setArticlesPosts(postRes.data);
-          setFilteredPosts(postRes.data);
-        }
+        setArticlesPosts(filteredPosts);
+        setFilteredPosts(filteredPosts);
+        setCategories(categoryFilterData);
+      } else {
+        setArticlesPosts(posts.sortedData);
+        setFilteredPosts(posts.sortedData);
+        setCategories(categoryFilterData);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -161,7 +183,7 @@ const AllArticles = () => {
 
           <div className="flex flex-col lg:flex-row gap-4 h-12">
             {/* Search input */}
-            <div className="flex flex-1 items-center shadow-lg border border-gray-300 rounded-md pl-3">
+            <div className="flex flex-1 items-center shadow-lg border border-(--Nevada) rounded-md pl-3">
               <input
                 type="text"
                 placeholder="Search for..."
@@ -187,7 +209,7 @@ const AllArticles = () => {
 
             {/* Dropdown */}
             <select
-              className="border border-gray-300 w-42 px-4 py-2 rounded-md shadow-lg focus:outline-none"
+              className="border border-(--Nevada) w-42 px-4 py-2 rounded-md shadow-lg focus:outline-none"
               onChange={(e) => {
                 const selected = e.target.value;
                 if (selected && !selectedCategories.includes(selected)) {
@@ -206,11 +228,11 @@ const AllArticles = () => {
 
           <div className="flex flex-wrap items-center gap-2 mt-4">
             {getCategoryName() && (
-              <div className="bg-gray-100 px-3 py-1 rounded-full flex items-center">
+              <div className="bg-(--Nevada) px-3 py-1 rounded-full flex items-center">
                 {getCategoryName()}
                 <button
                   onClick={() => setCategory("")}
-                  className="ml-2 text-gray-500 hover:text-red-500"
+                  className="ml-2 text-(--Emperor) hover:text-(--red)"
                 >
                   <i className="fa-solid fa-xmark"></i>
                 </button>
@@ -222,7 +244,7 @@ const AllArticles = () => {
               return (
                 <div
                   key={catSlug}
-                  className="bg-gray-100 px-3 py-1 rounded-full flex items-center"
+                  className="bg-(--Nevada) px-3 py-1 rounded-full flex items-center"
                 >
                   {cat?.name || catSlug}
                   <button
@@ -231,7 +253,7 @@ const AllArticles = () => {
                         selectedCategories.filter((slug) => slug !== catSlug)
                       )
                     }
-                    className="ml-2 text-gray-500 hover:text-red-500"
+                    className="ml-2 text-(--Emperor) hover:text-(--red)"
                   >
                     <i className="fa-solid fa-xmark"></i>
                   </button>
@@ -242,7 +264,7 @@ const AllArticles = () => {
             {(search || selectedCategories.length > 0) && (
               <button
                 onClick={handleClearAll}
-                className="ml-4 text-blue-600 hover:underline"
+                className="ml-4 text-(--Denim) hover:underline"
               >
                 Clear All
               </button>

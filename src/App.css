@@ -1,21 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "tailwindcss";
-
-
-
 
 #root {
   --primary-color: #ffffff;
-  --red: #EB6F6F;
+  --red: #eb6f6f;
   --black: #212121;
   --Blumine: #1d4d7c;
-  --Blumine-hover: #143d66; 
+  --Blumine-hover: #143d66;
   --Blumine-bg: #14446f;
-  --SurfCrest: #C3DFC6;
-  --Cornflower: #9DCDE7;
+  --SurfCrest: #c3dfc6;
+  --Cornflower: #9dcde7;
   --Fantasy: #f8f0ec;
-  --Sidecar: #F4E1C1;
+  --Sidecar: #f4e1c1;
   --Snuff: #ddd6e9;
   --MandysPink: #f4cab4;
   --Melanie: #e9c5da;
@@ -26,88 +23,86 @@
   --Rum: #7a6394;
   --Parsley: #145a31;
   --Whiskey: #d49c7c;
-  --PixieGreen: #BADCBB;
-  --Bone: #E8D6C9;
+  --PixieGreen: #badcbb;
+  --Bone: #e8d6c9;
   --MineShaft: #212121;
   --Emperor: #555555;
   --Nevada: #f3f3f3;
-  --WillowBrook: #DDEEDD;
-  --Denim: #1968CF;
---Victoria: #593C77
-  --MintTulip: #C3E3F2;
+  --WillowBrook: #ddeedd;
+  --Denim: #1968cf;
+  --Victoria: #593c77;
+  --MintTulip: #c3e3f2;
   --Linen: #f8ecd8;
-  --Twilight: #E6D6DF;
+  --Twilight: #e6d6df;
   --Kabul: #645043;
   --BurntUmber: #912926;
   --BeautyBush: #efbbc2;
-  --WineBerry: #661C43;
+  --WineBerry: #661c43;
   --AlbescentWhite: #f2e0c9;
-  --AthensGray: #EDEFF4;
+  --AthensGray: #edeff4;
   --Mercury: 185, 185, 185;
   --white-color: 255, 255, 255;
   --submit-color: 3, 2, 2;
   --teal: #008080;
-  --contact-input: #F2F2F2;
-
+  --contact-input: #f2f2f2;
 }
 
-body{
+body {
   font-family: "Noto Sans", sans-serif;
 }
 
-.mw-1280{
+.mw-1280 {
   max-width: 80rem;
   margin: 0 auto;
   width: 100%;
 }
 
-.wh-1920{
+.wh-1920 {
   width: 120rem;
   height: 78.375rem;
 }
 
-.logo{
+.logo {
   width: clamp(17.9575rem, 5.2554rem + 56.4538vw, 73rem);
   height: 100%;
 }
-.logo .site-logo{
+.logo .site-logo {
   width: clamp(5.3619rem, 4.0752rem + 5.7186vw, 10.9375rem);
 }
-.logo .site-title{
+.logo .site-title {
   width: clamp(11.5956rem, 6.2379rem + 23.8122vw, 34.8125rem);
 }
-.down-border img{
-  width:  clamp(23.75rem, 11.9231rem + 52.5641vw, 75rem);
+.down-border img {
+  width: clamp(23.75rem, 11.9231rem + 52.5641vw, 75rem);
   height: 0.75rem;
 }
-.g-48{
+.g-48 {
   gap: 3rem;
 }
-.g-3{
+.g-3 {
   gap: 0.75rem;
 }
-.submit-btn{
+.submit-btn {
   background-color: rgba(3, 2, 2, 0.06);
-  border-radius: 0.400rem;
+  border-radius: 0.4rem;
 }
 
-
-.footer:hover{
-  text-decoration: underline
+.footer:hover {
+  text-decoration: underline;
 }
 
 /* .header-menu{
   font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1.125rem);
 } */
-.header-menu{
- @apply font-medium text-sm text-(--primary-color) tracking-wide;
+.header-menu {
+  @apply font-medium text-sm text-(--primary-color) tracking-wide;
 }
 
-.menus{
+.menus {
   @apply flex items-center  gap-1 px-5 py-2 rounded-full hover:bg-(--Blumine-hover);
 }
 
-.left-btn{
+.left-btn {
   background-color: rgba(173, 15, 15, 0.06);
 }
 #navbar-dropdown {
@@ -116,7 +111,7 @@ body{
 /* media query */
 @media (max-width: 1024px) {
   .menu-btn {
-    display: flex; 
+    display: flex;
   }
   /* Show navbar-dropdown when .menu-open is added dynamically */
   .menu-open #navbar-dropdown {
@@ -135,7 +130,7 @@ body{
     margin-top: 1rem;
   }
 
-  .mob-menu{
+  .mob-menu {
     position: absolute;
     top: 153px;
     margin: -12px;
@@ -144,19 +139,18 @@ body{
     padding: 20px 10px;
   }
 
-  .mob-menu ul li a{
+  .mob-menu ul li a {
     color: var(--black);
   }
 
-  .submenus{
+  .submenus {
     color: var(--black);
   }
 
   .menu-btn {
     padding-top: 20px;
   }
-  .left-btn{
+  .left-btn {
     background: var(--Blumine);
   }
-
 }

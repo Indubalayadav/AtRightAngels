@@ -67,7 +67,7 @@ const ResourcesCard = ({
         <div>
           <Category category={post._embedded?.["wp:term"]?.[0]?.[0]?.name}/>
         </div>
-        <h3 className={`${fontSize} font-bold text-gray-900`}>
+        <h3 className={`${fontSize} font-bold text-(--MineShaft)`}>
           <a
             href={`/posts/${post.id}`}
             className="hover:text-(--Blumine) hover:underline hover:decoration-(--MineShaft)"

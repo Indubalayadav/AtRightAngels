@@ -21,3 +21,5 @@ export const formatCustomDate = (dateStr) => {
       year: "numeric",
     }).format(date);
   };
+  // utils/cn.js
+export const cn = (...classes) => classes.filter(Boolean).join(' ');
