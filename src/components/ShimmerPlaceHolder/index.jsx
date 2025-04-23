@@ -5,16 +5,16 @@ const ShimmerPlaceHolder = ({ variant = "main" }) => {
   const isSidebar = variant === "sidebar";
   const isCustomSection = variant === "customSection";
   
-  // Set appropriate sizes for each variant
+
   let heightClass = "h-40";
   let widthClass = "w-full";
 
   if (isMain) {
-    heightClass = "h-64"; // Main card larger height
+    heightClass = "h-64"; 
   } else if (isSidebar) {
-    heightClass = "h-48"; // Sidebar card medium height
+    heightClass = "h-10"; 
   } else if (isCustomSection) {
-    heightClass = "h-52"; // Custom section height
+    heightClass = "h-52"; 
   }
 
   // Set different widths and heights for the inner placeholder divs

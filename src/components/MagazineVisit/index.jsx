@@ -14,7 +14,7 @@ const Magazinevisit= ({ post, value }) => {
           <a
             href={`/posts/${post.id}`}
             rel="noopener noreferrer"
-            className="flex justify-center gap-1 bg-white text-black font-bold py-3 rounded-md shadow-md border border-gray-300 hover:bg-gray-100 transition"
+            className="flex justify-center gap-1 bg-(--primary-color) text-(--black) font-bold py-3 rounded-md shadow-md border border-gray-300 hover:bg-gray-100 transition"
           >
             Visit 
             <div className='flex gap-3 justify-center'>

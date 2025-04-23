@@ -28,17 +28,16 @@ const Home = () => {
   const { scrollYProgress } = useScroll();
   const magazineSectionRef = useRef(null);
   const magazineCardRefs = useRef([]);
-  magazineCardRefs.current = []; // Reset on re-render
+  magazineCardRefs.current = []; 
 
   const otherMagazineRefs = useRef([]);
-  otherMagazineRefs.current = []; // Reset on re-render
+  otherMagazineRefs.current = []; 
   const otherMagazineSectionRef = useRef(null);
 
   const resourcesSectionRef = useRef();
   const resourceCardsRef = useRef([]);
 
-  // const articlesSectionRef = useRef(null);
-  // const articlesCardRefs = useRef([]);
+
 
   // Callback to add refs
   const addToMagazineRefs = (el) => {
@@ -129,11 +128,11 @@ const Home = () => {
         resourceCardsRef.current[0],
         {
           opacity: 0,
-          y: -60,
+          x: -100,
         },
         {
           opacity: 1,
-          y: 0,
+          x: 0,
           duration: 2,
           stagger: 0.4,
           ease: "power3.out",
@@ -150,11 +149,11 @@ const Home = () => {
         resourceCardsRef.current.slice(1, 3),
         {
           opacity: 0,
-          y: 60,
+          x: -100,
         },
         {
           opacity: 1,
-          y: 0,
+          x: 0,
           duration: 1.2,
           ease: "power3.out",
           stagger: 0.3, // Ensures they animate one by one
@@ -218,7 +217,7 @@ const Home = () => {
 
       // Right section animation (from right to left)
       gsap.fromTo(
-        rightArticleSectionRef.current,
+        rightArticleSectionRef.current.children,
         {
           opacity: 0,
           x: 100, // Starts off-screen to the right
@@ -227,6 +226,7 @@ const Home = () => {
           opacity: 1,
           x: 0,
           duration: 1.2,
+          stagger: 0.3, 
           ease: "power3.out",
           scrollTrigger: {
             trigger: articleSectionRef.current,
@@ -347,7 +347,7 @@ const Home = () => {
                 <Announcement announcements={announcements} />
               </div>
             </div>
-            <div className="min-h-[18rem] md:min-h-[20rem] lg:min-h-[21.75rem] max-h-[25rem]  flex flex-col gap-6">
+            <div className="min-h-[18rem] md:min-h-[20rem] lg:min-h-[21.75rem] max-h-[25rem]  flex flex-col gap-4">
               {posts.length > 0 ? (
                 posts.slice(3, 6).map((post, index) => (
                   <React.Fragment key={post.id}>
@@ -397,7 +397,7 @@ const Home = () => {
               </h2>
             </div>
             <div className="flex flex-col lg:flex-row gap-6 mt-10">
-              <div className="w-full lg:w-1/2 flex flex-col gap-10">
+              <div className="w-full lg:w-1/2 flex flex-col gap-12">
                 {resourcesPosts.length > 0 ? (
                    <div ref={(el) => (resourceCardsRef.current[0] = el)}>
                   <ResourcesCard post={resourcesPosts[0]} mainSection={true} />
@@ -431,7 +431,7 @@ const Home = () => {
                   )}
                 </div>
               </div>
-              <div className="w-full lg:w-1/2 gap-4 flex flex-col">
+              <div className="w-full lg:w-1/2 gap-3 flex flex-col rounded">
                 {resourcesPosts.slice(3, 8).length > 0 ? (
                   resourcesPosts.slice(3, 8).map((item, index) => (
                     <div key={index} className="flex flex-col gap-4">
@@ -468,7 +468,7 @@ const Home = () => {
       />
 
       {/* section for showing magazine posts */}
-      <div className="bg-[--primary-color]" ref={magazineSectionRef}>
+      <div className="bg-(--primary-color)" ref={magazineSectionRef}>
         <div className="max-w-7xl mx-auto px-4 py-30">
           <div>
             <img src="/images/magazine-img.svg" alt="icon" />

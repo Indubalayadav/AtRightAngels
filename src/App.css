@@ -12,11 +12,12 @@
   --SurfCrest: #c3dfc6;
   --Cornflower: #9dcde7;
   --Fantasy: #f8f0ec;
-  --Sidecar: #f4e1c1;
   --Snuff: #ddd6e9;
   --MandysPink: #f4cab4;
   --Melanie: #e9c5da;
   --FogL: #dbddff;
+  --Sidecar: #F4E3C7;
+  --Sidecar-2: #f6dccb;
   --LemonChiffon: #fff8cc;
   --MandyPink: #efb1b1;
   --BrownRust: #be7143;
@@ -91,9 +92,7 @@ body {
   text-decoration: underline;
 }
 
-/* .header-menu{
-  font-size: clamp(0.875rem, 0.8173rem + 0.2564vw, 1.125rem);
-} */
+
 .header-menu {
   @apply font-medium text-sm text-(--primary-color) tracking-wide;
 }
@@ -108,6 +107,11 @@ body {
 #navbar-dropdown {
   display: flex;
 }
+
+
+
+
+
 /* media query */
 @media (max-width: 1024px) {
   .menu-btn {
