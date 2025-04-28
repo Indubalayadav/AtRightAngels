@@ -52,6 +52,7 @@ const Header = () => {
           trigger: logoRef.current,
           start: "top 80%",
           toggleActions: "play none none none",
+          once: true, // Prevents animation from resetting
         },
       });
   
@@ -66,6 +67,7 @@ const Header = () => {
           trigger: titleRef.current,
           start: "top 80%",
           toggleActions: "play none none none",
+          once: true, // Prevents animation from resetting
         },
       });
   
@@ -80,22 +82,23 @@ const Header = () => {
           delay: 0.3 + index * 0.1,
           scrollTrigger: {
             trigger: el,
-            start: "top 90%",
+            start: "top 80%",
             toggleActions: "play none none none",
-          },
-          onComplete: () => {
-            // Ensure elements stay visible
-            gsap.set(el, { opacity: 1, clearProps: "all" });
+            once: true, // Prevents animation from resetting
           },
         });
       });
-  
-      // Optional: Refresh ScrollTrigger in case elements change
-      ScrollTrigger.refresh();
     });
   
     return () => ctx.revert(); // Clean up
   }, []);
+
+   // Handle refs for navigation items
+   const handleNavItemRef = (el) => {
+    if (el && !navItemsRef.current.includes(el)) {
+      navItemsRef.current.push(el);
+    }
+  };
   
   // const navRightAnimationRef = useRef(null);
   useEffect(() => {
@@ -180,13 +183,13 @@ const Header = () => {
                       id="navbar-dropdown"
                     >
                       <ul
-                        className={`flex flex-col lg:flex-row  font-medium header-menu ${
+                        className={`mob-menu-btn flex flex-col lg:flex-row  font-medium header-menu  ${
                           menuOpen ? "flex items-normal" : "hidden items-center"
                         } lg:flex`}
                       >
                         <li
                           className="relative"
-                          ref={(el) => navItemsRef.current.push(el)}
+                          ref={handleNavItemRef}
                         >
                           <button
                             onClick={() => {
@@ -266,7 +269,7 @@ const Header = () => {
                         </li>
                         <li
                           className="relative"
-                          ref={(el) => navItemsRef.current.push(el)}
+                          ref={handleNavItemRef}
                         >
                           <button
                             onClick={() => {
@@ -344,7 +347,7 @@ const Header = () => {
                             </div>
                           )}
                         </li>
-                        <li ref={(el) => navItemsRef.current.push(el)}>
+                        <li ref={handleNavItemRef}>
                           <a
                             href="/all-posts/16?category"
                             className="block py-2 px-3 text-(--primary-color) hover:bg-(--Blumine-hover) rounded-full"
@@ -352,7 +355,7 @@ const Header = () => {
                             MAGAZINE ISSUES
                           </a>
                         </li>
-                        <li ref={(el) => navItemsRef.current.push(el)}>
+                        <li ref={handleNavItemRef}>
                           <a
                             href="/about-us"
                             className="block py-2 px-3 text-(--primary-color) hover:bg-(--Blumine-hover) rounded-full"
@@ -362,17 +365,17 @@ const Header = () => {
                         </li>
                       </ul>
                     </div>
-                    <div className="flex gap-6 items-center">
+                    <div className="flex gap-6 items-center mob-menu-btn">
                       <div className="menu-btn flex gap-2">
                         <a
-                          ref={(el) => navItemsRef.current.push(el)}
+                          ref={handleNavItemRef}
                           href="/call-for-articles"
                           className="header-menu menus left-btn"
                         >
                           Call for Articles
                         </a>
                         <a
-                          ref={(el) => navItemsRef.current.push(el)}
+                          ref={handleNavItemRef}
                           href="https://login.salesforce.com/?locale=in"
                           className="header-menu menus left-btn"
                         >
@@ -386,7 +389,7 @@ const Header = () => {
             </div>
             <div>
               <div className=" flex items-center gap-4">
-                <div ref={(el) => navItemsRef.current.push(el)} className="">
+                <div className="">
                   {/* search icon */}
                   <button
                     onClick={() => setSearchOpen(!searchOpen)}
@@ -446,18 +449,18 @@ const Header = () => {
                     </div>
                   )}
                 </div>
-                <div ref={(el) => navItemsRef.current.push(el)} className="">
+                <div ref={handleNavItemRef} className="">
                   <button
                     onClick={() => {
                       closeAllDropdowns("language");
                       setLanguageOpen((prev) => !prev);
                     }}
-                    className="header-menu cursor-pointer flex items-center text-(--primary-color) gap-1 "
+                    className="header-menu cursor-pointer flex items-center text-(--primary-color) hover:bg-(--Blumine-hover) py-2 px-3 rounded-full gap-1 "
                   >
                     English <ChevronDown size={16} />
                   </button>
                   {languageOpen && (
-                    <div className="absolute top-45 bg-(--primary-color) text-(--black) rounded shadow-md  p-4">
+                    <div className="absolute top-10 bg-(--primary-color) text-(--black) rounded shadow-md  p-4">
                       <a
                         href="#"
                         className="block px-4 py-2 hover:bg-(--Nevada)"

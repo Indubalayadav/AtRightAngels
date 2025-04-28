@@ -12,9 +12,9 @@ const Announcement = ({ announcements = [] }) => {
     return (
       <div
       role="status"
-      className="animate-pulse bg-white rounded-lg shadow-md overflow-hidden"
+      className="animate-pulse bg-(--primary-color) rounded-lg shadow-md overflow-hidden"
     >
-      <div className={`bg-gray-300 h-64 w-full`} />
+      <div className={`bg-gray-300 h-48 w-full`} />
       </div>
     );
   }

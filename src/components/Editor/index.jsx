@@ -32,7 +32,7 @@ const Editor = () => {
           <p className="text-base">{truncatedText}</p>
         </div>
         <div className="text-center mt-4">
-          <button onClick={() => setIsModalOpen(true)} className="text-(--MineShaft) underline cursor-pointer hover:border p-2 hover:no-underline transition-all duration-600 ease-in-out">
+          <button onClick={() => setIsModalOpen(true)} className="text-(--MineShaft) underline cursor-pointer  hover:no-underline transition-all duration-600 ease-in-out">
             READ MORE
           </button>
         </div>

@@ -114,10 +114,10 @@ const Contact = () => {
               ></input>
             </div>
 
-            <div className="my-6 bg-(--Emperor) hover:bg-(--MineShaft) text-sm font-medium text-(--primary-color) rounded  transition tracking-[1px] h-12 w-33 cursor-pointer">
+            <div className="my-6 bg-(--Emperor) hover:bg-(--MineShaft) text-sm font-medium text-(--primary-color) rounded  transition tracking-[1px] h-12 w-33">
             <button
               type="submit"
-              className=" h-12 w-full flex items-center justify-center gap-3"
+              className=" h-12 w-full flex items-center justify-center gap-3 cursor-pointer rounded border border-(--black) focus:outline-none focus:ring-4 focus:ring-(--Emperor) focus:ring-offset-2 transition"
               disabled={loading}
             >
               {loading ? (

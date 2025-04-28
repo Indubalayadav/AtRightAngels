@@ -4,7 +4,7 @@ import Informed from "../../components/Informed";
 const AboutUs = () => {
   return (
     <div className="relative h-full">
-      <div className="bg-(--Blumine) h-78">
+      <div className="bg-(--Blumine) lg:h-78 md:h-56">
         <img
           src="/images/allarticleimg.svg"
           alt=""

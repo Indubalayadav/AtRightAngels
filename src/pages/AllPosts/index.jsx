@@ -3,6 +3,8 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import PostCard from "../../components/PostCard";
 import { getArticlesData, getCategoryData } from "../../services/apiServices";
+import MagazinePage from "../../components/MagazinePage";
+
 
 const AllArticles = () => {
   const [search, setSearch] = useState("");
@@ -13,7 +15,7 @@ const AllArticles = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   let { categoryId } = useParams();
-  const [selectedCategories, setSelectedCategories] = useState([]); // instead of single category
+  const [selectedCategories, setSelectedCategories] = useState([]); 
   const [searchParams] = useSearchParams();
   const categoryParam = searchParams.get("category") || "";
 
@@ -281,11 +283,14 @@ const AllArticles = () => {
                   mainSection={true}
                   sectionVariant="customSection"
                 />{" "}
+                
               </div>
             ))
           ) : (
             <p>No Post Available..</p>
           )}
+
+         
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/all-posts/:categoryId" element={<AllPosts />} />
-        <Route path="/posts/:id" element={<Posts />} /> 
+        <Route path="/:parentId/posts/:id" element={<Posts />} /> 
         <Route path="/call-for-articles" element={<CallForArticles />} /> 
         <Route path="/search" element={<Search />} />
         <Route path="/about-us" element={<AboutUs />} />

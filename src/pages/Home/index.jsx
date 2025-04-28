@@ -28,18 +28,22 @@ const Home = () => {
   const { scrollYProgress } = useScroll();
   const magazineSectionRef = useRef(null);
   const magazineCardRefs = useRef([]);
-  magazineCardRefs.current = []; 
+  magazineCardRefs.current = [];
 
   const otherMagazineRefs = useRef([]);
-  otherMagazineRefs.current = []; 
+  otherMagazineRefs.current = [];
   const otherMagazineSectionRef = useRef(null);
+  const resourcesSectionRef = useRef(null);
+  const resourceCardRefs = useRef([]);
 
-  const resourcesSectionRef = useRef();
-  const resourceCardsRef = useRef([]);
-
-
-
+  // animation
   // Callback to add refs
+  const addToResourceRefs = (el) => {
+    if (el && !resourceCardRefs.current.includes(el)) {
+      resourceCardRefs.current.push(el);
+    }
+  };
+
   const addToMagazineRefs = (el) => {
     if (el && !magazineCardRefs.current.includes(el)) {
       magazineCardRefs.current.push(el);
@@ -51,10 +55,6 @@ const Home = () => {
       otherMagazineRefs.current.push(el);
     }
   };
-  
-  const articleSectionRef = useRef();
-  const leftArticleSectionRef = useRef();
-  const rightArticleSectionRef = useRef();
 
   useEffect(() => {
     fetchArticlesData();
@@ -65,7 +65,7 @@ const Home = () => {
 
   useEffect(() => {
     if (magazinePosts.length === 0) return;
-  
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         magazineCardRefs.current,
@@ -87,13 +87,13 @@ const Home = () => {
         }
       );
     }, magazineSectionRef);
-  
+
     return () => ctx.revert();
   }, [magazinePosts]);
 
   useEffect(() => {
     if (magazineVisit.length === 0) return;
-  
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         otherMagazineRefs.current,
@@ -115,7 +115,7 @@ const Home = () => {
         }
       );
     }, otherMagazineSectionRef);
-  
+
     return () => ctx.revert();
   }, [magazineVisit]);
 
@@ -123,66 +123,22 @@ const Home = () => {
     if (resourcesPosts.length === 0) return;
 
     const ctx = gsap.context(() => {
-      // First post (comes from top)
       gsap.fromTo(
-        resourceCardsRef.current[0],
+        resourcesSectionRef.current.children, // Targeting the children inside resources section
         {
-          opacity: 0,
-          x: -100,
+          opacity: 0, // Start as invisible
+          y: 60, // Start below the screen
         },
         {
-          opacity: 1,
-          x: 0,
-          duration: 2,
-          stagger: 0.4,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: resourcesSectionRef.current,
-            start: "top 80%",
-            toggleActions: "restart none restart reverse",
-          },
-        }
-      );
-
-      // Next two posts (comes from bottom one by one)
-      gsap.fromTo(
-        resourceCardsRef.current.slice(1, 3),
-        {
-          opacity: 0,
-          x: -100,
-        },
-        {
-          opacity: 1,
-          x: 0,
+          opacity: 1, // Fade in
+          y: 0, // Move to original position
           duration: 1.2,
+          stagger: 0.3, // Staggering the animation for each child
           ease: "power3.out",
-          stagger: 0.3, // Ensures they animate one by one
           scrollTrigger: {
             trigger: resourcesSectionRef.current,
-            start: "top 80%",
-            toggleActions: "restart none restart reverse",
-          },
-        }
-      );
-
-      // Side posts (comes from the right one by one)
-      gsap.fromTo(
-        resourceCardsRef.current.slice(3),
-        {
-          opacity: 0,
-          x: 60,
-        },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1.2,
-          stagger: 0.3,
-          ease: "power3.out",
-          stagger: 0.3,
-          scrollTrigger: {
-            trigger: resourcesSectionRef.current,
-            start: "top 80%",
-            toggleActions: "restart none restart reverse",
+            start: "top 80%", // Start animation when the section is 80% visible
+            toggleActions: "restart none restart reverse", // Restart animation when scrolled back
           },
         }
       );
@@ -190,63 +146,14 @@ const Home = () => {
 
     return () => ctx.revert();
   }, [resourcesPosts]);
-  
-  useEffect(() => {
-    if (posts.length === 0) return;
 
-    const ctx = gsap.context(() => {
-      // Left section animation (from left to right)
-      gsap.fromTo(
-        leftArticleSectionRef.current,
-        {
-          opacity: 0,
-          x: -100, // Starts off-screen to the left
-        },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: articleSectionRef.current,
-            start: "top 80%",
-            toggleActions: "restart none restart reverse",
-          },
-        }
-      );
-
-      // Right section animation (from right to left)
-      gsap.fromTo(
-        rightArticleSectionRef.current.children,
-        {
-          opacity: 0,
-          x: 100, // Starts off-screen to the right
-        },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1.2,
-          stagger: 0.3, 
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: articleSectionRef.current,
-            start: "top 80%",
-            toggleActions: "restart none restart reverse",
-          },
-        }
-      );
-    }, articleSectionRef);
-
-    return () => ctx.revert();
-  }, [posts]);
-
-  // // Fetch Articles posts and announcements data
+  // Fetch Articles posts and announcements data
   const fetchArticlesData = async () => {
     try {
       const articles = await getArticlesData(null, 5);
-        setPosts(articles.sortedData);
-        setCategoriesId(articles.categoryIds);
-        setAnnouncements(articles.announcementPosts);
+      setPosts(articles.sortedData);
+      setCategoriesId(articles.categoryIds);
+      setAnnouncements(articles.announcementPosts);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -256,9 +163,7 @@ const Home = () => {
   const fetchResourcesData = async () => {
     try {
       const resource = await getArticlesData(null, 10);
-      console.log("Fetched Resources:", resource); // Check the structure
-        setResourcesPosts(resource.sortedData);
-      
+      setResourcesPosts(resource.sortedData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -268,7 +173,7 @@ const Home = () => {
   const fetchMagazineData = async () => {
     try {
       const magazine = await getMagazineData(16);
-        setMagazinesPosts(magazine);
+      setMagazinesPosts(magazine);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -277,8 +182,7 @@ const Home = () => {
   const fetchMagazineVisitData = async () => {
     try {
       const magazinevisit = await getArticlesData(null, 17);
-        setMagazineVisit(magazinevisit.sortedData);
-      
+      setMagazineVisit(magazinevisit.sortedData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -292,7 +196,6 @@ const Home = () => {
         style={{
           scaleX: scrollYProgress,
           position: "fixed",
-          top: 182,
           left: 0,
           right: 0,
           height: 6,
@@ -302,12 +205,12 @@ const Home = () => {
         }}
       />
       {/* section for showing articles posts and announcements */}
-      <div className="max-w-7xl mx-auto px-4 my-25" ref={articleSectionRef}>
+      <div className="max-w-7xl mx-auto px-4 my-25">
         <div className="flex flex-col lg:flex-row gap-6">
-          <div className="w-full lg:w-3/5" ref={leftArticleSectionRef}>
+          <div className="w-full lg:w-3/5">
             {posts.length > 0 ? (
               <div>
-                <PostCard post={posts[0]} mainSection={true} />
+                <PostCard post={posts[0]} mainSection={true} parentId={5} />
               </div>
             ) : (
               <ShimmerPlaceHolder variant="main" />
@@ -323,6 +226,7 @@ const Home = () => {
                         post={post}
                         mainSection={true}
                         sectionVariant="customSection"
+                        parentId={5}
                       />{" "}
                     </div>
                   ))
@@ -338,10 +242,19 @@ const Home = () => {
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-6 w-full lg:w-2/5" ref={rightArticleSectionRef}>
+          <div className="flex flex-col gap-6 w-full lg:w-2/5">
             <div className="flex flex-col gap-4">
               <div>
-                <Editor />
+                {posts.length > 0 ? (
+                  <Editor />
+                ) : (
+                  <div
+                    role="status"
+                    className="animate-pulse bg-(--primary-color) rounded-lg shadow-md overflow-hidden"
+                  >
+                    <div className={`bg-gray-300 h-64 w-full`} />
+                  </div>
+                )}
               </div>
               <div className="pt-4">
                 <Announcement announcements={announcements} />
@@ -356,6 +269,7 @@ const Home = () => {
                         post={post}
                         mainSection={false}
                         sidebarWidget={true}
+                        parentId={5}
                       />
                     </div>
 
@@ -377,12 +291,17 @@ const Home = () => {
           </div>
         </div>
         <div className="flex justify-center mt-10">
-          <CustomButton onClick={() => navigate('/all-posts/5')} className="cursor-pointer">ALL ARTICLES <i className="fas fa-arrow-right ml-2"></i></CustomButton>
+          <CustomButton
+            onClick={() => navigate("/all-posts/5")}
+            className="cursor-pointer"
+          >
+            ALL ARTICLES <i className="fas fa-arrow-right ml-2"></i>
+          </CustomButton>
         </div>
       </div>
 
       {/* section for showing Resource posts  */}
-      <div className="relative z-0" ref={resourcesSectionRef}>
+      <div className="relative z-0">
         <img
           src="/images/linebar-up-down-multi-color.svg"
           alt=""
@@ -396,11 +315,19 @@ const Home = () => {
                 RESOURCES
               </h2>
             </div>
-            <div className="flex flex-col lg:flex-row gap-6 mt-10">
+            <div
+              className="flex flex-col lg:flex-row gap-6 mt-10"
+              ref={resourcesSectionRef}
+            >
               <div className="w-full lg:w-1/2 flex flex-col gap-12">
                 {resourcesPosts.length > 0 ? (
-                   <div ref={(el) => (resourceCardsRef.current[0] = el)}>
-                  <ResourcesCard post={resourcesPosts[0]} mainSection={true} />
+                  <div>
+                    <ResourcesCard
+                      post={resourcesPosts[0]}
+                      mainSection={true}
+                      ref={addToResourceRefs}
+                      parentId={10}
+                    />
                   </div>
                 ) : (
                   <ShimmerPlaceHolder variant="main" />
@@ -411,11 +338,13 @@ const Home = () => {
                     resourcesPosts
                       .filter((_, index) => index === 1 || index === 2)
                       .map((item, index) => (
-                        <div key={index} className="w-full lg:w-1/2" ref={(el) => (resourceCardsRef.current[index + 1] = el)}>
+                        <div key={index} className="w-full lg:w-1/2">
                           <ResourcesCard
+                            ref={addToResourceRefs}
                             post={item}
                             mainSection={true}
                             sectionVariant="customSection"
+                            parentId={10}
                           />
                         </div>
                       ))
@@ -435,11 +364,13 @@ const Home = () => {
                 {resourcesPosts.slice(3, 8).length > 0 ? (
                   resourcesPosts.slice(3, 8).map((item, index) => (
                     <div key={index} className="flex flex-col gap-4">
-                      <div className="" ref={(el) => (resourceCardsRef.current[index + 3] = el)}>
+                      <div className="">
                         <ResourcesCard
+                          ref={addToResourceRefs}
                           post={item}
                           mainSection={false}
                           sidebarWidget={true}
+                          parentId={10}
                         />
                       </div>
 
@@ -451,12 +382,23 @@ const Home = () => {
                     </div>
                   ))
                 ) : (
-                  <p>No Post Available..</p>
+                  <>
+                  <ShimmerPlaceHolder variant="sidebar" context="resource"/>
+                  <ShimmerPlaceHolder variant="sidebar" context="resource"/>
+                  <ShimmerPlaceHolder variant="sidebar" context="resource"/>
+                  <ShimmerPlaceHolder variant="sidebar" context="resource"/>
+                  <ShimmerPlaceHolder variant="sidebar" context="resource"/>
+                  </>
                 )}
               </div>
             </div>
             <div className="flex justify-center mt-10">
-            <CustomButton onClick={() => navigate('/all-posts/10')} className="cursor-pointer">ALL RESOURCES <i className="fas fa-arrow-right ml-2"></i></CustomButton>
+              <CustomButton
+                onClick={() => navigate("/all-posts/10")}
+                className="cursor-pointer"
+              >
+                ALL RESOURCES <i className="fas fa-arrow-right ml-2"></i>
+              </CustomButton>
             </div>
           </div>
         </div>
@@ -468,7 +410,7 @@ const Home = () => {
       />
 
       {/* section for showing magazine posts */}
-      <div className="bg-(--primary-color)" ref={magazineSectionRef}>
+      <div className="bg-(--primary-color)">
         <div className="max-w-7xl mx-auto px-4 py-30">
           <div>
             <img src="/images/magazine-img.svg" alt="icon" />
@@ -477,7 +419,10 @@ const Home = () => {
             </h2>
           </div>
 
-          <div className="pt-10 overflow-x-auto xl:overflow-x-visible">
+          <div
+            className="pt-10 overflow-x-auto xl:overflow-x-visible"
+            ref={magazineSectionRef}
+          >
             <div className="flex gap-6 ">
               {magazinePosts.length > 0 ? (
                 magazinePosts.map((mag, index) => (
@@ -495,13 +440,18 @@ const Home = () => {
             </div>
           </div>
           <div className="flex justify-center mt-8">
-          <CustomButton onClick={() => navigate('/all-posts/16')} className="cursor-pointer">ALL MAGAZINES <i className="fas fa-arrow-right ml-2"></i></CustomButton>
+            <CustomButton
+              onClick={() => navigate("/all-posts/16")}
+              className="cursor-pointer"
+            >
+              ALL MAGAZINES <i className="fas fa-arrow-right ml-2"></i>
+            </CustomButton>
           </div>
         </div>
       </div>
 
       {/* section for showing other magazines from Azim Premji University */}
-      <div className="relative z-0" ref={otherMagazineSectionRef}>
+      <div className="relative z-0">
         <div className="absolute z-1 2xl:-top-18 xl:-top-14 lg:-top-10 md:-top-8 -top-4">
           <img src="/images/univer-down-line.svg" alt="" className="" />
           <img src="/images/univer-up-line.svg" alt="" className="" />
@@ -519,11 +469,18 @@ const Home = () => {
                 </span>
               </h2>
             </div>
-            <div className="pt-10 overflow-x-auto xl:overflow-x-visible">
+            <div
+              className="pt-10 overflow-x-auto xl:overflow-x-visible"
+              ref={otherMagazineSectionRef}
+            >
               <div className="flex flex-row md:justify-center gap-8 mt-8">
                 {magazineVisit.length > 0 ? (
                   magazineVisit.map((magazine, index) => (
-                    <div key={index} className="flex-shrink-0" ref={addToOtherMagazineRefs}>
+                    <div
+                      key={index}
+                      className="flex-shrink-0"
+                      ref={addToOtherMagazineRefs}
+                    >
                       <MagazineVisit post={magazine} value={index} />
                     </div>
                   ))

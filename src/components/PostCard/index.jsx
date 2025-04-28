@@ -7,6 +7,7 @@ const PostCard = ({
   sidebarWidget,
   mainSection = false,
   sectionVariant,
+  parentId = null, 
 }) => {
   console.log("PostCard Props:", post);
 
@@ -23,6 +24,21 @@ const PostCard = ({
     : sectionVariant == "customSection"
     ? "text-base lg:text-xl"
     : "text-lg lg:text-2xl";
+
+
+    const getTitle = (title) => {
+      const words = title.split(" ");
+      const maxWords = 3;
+      
+      if (sidebarWidget || sectionVariant === "customSection") {
+        return words.length > maxWords
+          ? words.slice(0, maxWords).join(" ") + "..."
+          : title;
+      } else {
+        return title;
+      }
+    };
+    
   return (
     <div
       className={`${
@@ -45,19 +61,10 @@ const PostCard = ({
         <h2 className={`${fontSize} font-bold leading-[30px]`}>
           {" "}
           <a
-            href={`/posts/${post.id}`}
+            href={`${parentId}/posts/${post.id}`}
             className="hover:text-(--Blumine) hover:underline hover:decoration-(--MineShaft)"
           >
-            {(() => {
-              const words = post.title.rendered.split(" ");
-              const maxWords = 3;
-
-              if (words.length > maxWords) {
-                return words.slice(0, maxWords).join(" ") + "...";
-              } else {
-                return post.title.rendered;
-              }
-            })()}
+            {getTitle(post.title.rendered)}
           </a>
         </h2>
         <p className="text-sm font-medium">

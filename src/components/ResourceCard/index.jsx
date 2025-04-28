@@ -5,6 +5,7 @@ const ResourcesCard = ({
   sidebarWidget,
   mainSection = false,
   sectionVariant,
+  parentId = null, 
 }) => {
   const imageSize = sidebarWidget
     ? "  lg:w-40 h-40"
@@ -69,7 +70,7 @@ const ResourcesCard = ({
         </div>
         <h3 className={`${fontSize} font-bold text-(--MineShaft)`}>
           <a
-            href={`/posts/${post.id}`}
+            href={`${parentId}/posts/${post.id}`}
             className="hover:text-(--Blumine) hover:underline hover:decoration-(--MineShaft)"
           >
             {post.title.rendered.split(" ").slice(0, splitValue).join(" ") +

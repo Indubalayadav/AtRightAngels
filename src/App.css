@@ -136,11 +136,11 @@ body {
 
   .mob-menu {
     position: absolute;
-    top: 153px;
+    top: 162px;
     margin: -12px;
     background-color: rgba(var(--white-color), 0.9);
     width: 100%;
-    padding: 20px 10px;
+  
   }
 
   .mob-menu ul li a {
@@ -150,10 +150,9 @@ body {
   .submenus {
     color: var(--black);
   }
-
-  .menu-btn {
-    padding-top: 20px;
-  }
+ .mob-menu-btn{
+  padding: 0px 10px 10px;
+ }
   .left-btn {
     background: var(--Blumine);
   }
