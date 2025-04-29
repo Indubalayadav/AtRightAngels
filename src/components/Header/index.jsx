@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, Menu } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -16,8 +16,6 @@ const Header = () => {
   const modalRef = useRef(null);
   const navigate = useNavigate();
 
-  // const menuItemsRef = useRef([]);
-  // menuItemsRef.current = [];
 
   const logoRef = useRef(null);
   const titleRef = useRef(null);
@@ -52,7 +50,7 @@ const Header = () => {
           trigger: logoRef.current,
           start: "top 80%",
           toggleActions: "play none none none",
-          once: true, // Prevents animation from resetting
+          once: true, 
         },
       });
   
@@ -67,7 +65,7 @@ const Header = () => {
           trigger: titleRef.current,
           start: "top 80%",
           toggleActions: "play none none none",
-          once: true, // Prevents animation from resetting
+          once: true, 
         },
       });
   
@@ -84,13 +82,13 @@ const Header = () => {
             trigger: el,
             start: "top 80%",
             toggleActions: "play none none none",
-            once: true, // Prevents animation from resetting
+            once: true, 
           },
         });
       });
     });
   
-    return () => ctx.revert(); // Clean up
+    return () => ctx.revert(); 
   }, []);
 
    // Handle refs for navigation items
@@ -100,7 +98,7 @@ const Header = () => {
     }
   };
   
-  // const navRightAnimationRef = useRef(null);
+  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -110,7 +108,7 @@ const Header = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Clean up the listener on component unmount
+   
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 

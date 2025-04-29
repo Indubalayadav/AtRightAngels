@@ -19,7 +19,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const [categoriesId, setCategoriesId] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [resourcesPosts, setResourcesPosts] = useState([]);
   const [magazinePosts, setMagazinesPosts] = useState([]);
@@ -124,21 +123,21 @@ const Home = () => {
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        resourcesSectionRef.current.children, // Targeting the children inside resources section
+        resourcesSectionRef.current.children, 
         {
-          opacity: 0, // Start as invisible
-          y: 60, // Start below the screen
+          opacity: 0, 
+          y: 60,
         },
         {
-          opacity: 1, // Fade in
-          y: 0, // Move to original position
+          opacity: 1,
+          y: 0, 
           duration: 1.2,
-          stagger: 0.3, // Staggering the animation for each child
+          stagger: 0.3, 
           ease: "power3.out",
           scrollTrigger: {
             trigger: resourcesSectionRef.current,
-            start: "top 80%", // Start animation when the section is 80% visible
-            toggleActions: "restart none restart reverse", // Restart animation when scrolled back
+            start: "top 80%",
+            toggleActions: "restart none restart reverse", 
           },
         }
       );
@@ -152,7 +151,7 @@ const Home = () => {
     try {
       const articles = await getArticlesData(null, 5);
       setPosts(articles.sortedData);
-      setCategoriesId(articles.categoryIds);
+      
       setAnnouncements(articles.announcementPosts);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -260,7 +259,7 @@ const Home = () => {
                 <Announcement announcements={announcements} />
               </div>
             </div>
-            <div className="min-h-[18rem] md:min-h-[20rem] lg:min-h-[21.75rem] max-h-[25rem]  flex flex-col gap-4">
+            <div className="min-h-[18rem] md:min-h-[20rem] lg:min-h-[21.75rem] max-h-[25rem]  flex flex-col gap-6">
               {posts.length > 0 ? (
                 posts.slice(3, 6).map((post, index) => (
                   <React.Fragment key={post.id}>
@@ -431,7 +430,7 @@ const Home = () => {
                     className=" flex-shrink-0"
                     ref={addToMagazineRefs}
                   >
-                    <MagazinePage post={mag} />
+                    <MagazinePage post={mag} parentId={16}/>
                   </div>
                 ))
               ) : (
@@ -481,7 +480,7 @@ const Home = () => {
                       className="flex-shrink-0"
                       ref={addToOtherMagazineRefs}
                     >
-                      <MagazineVisit post={magazine} value={index} />
+                      <MagazineVisit post={magazine} value={index} parentId={17}/>
                     </div>
                   ))
                 ) : (

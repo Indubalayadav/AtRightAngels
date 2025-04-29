@@ -21,6 +21,7 @@ const Announcement = ({ announcements = [] }) => {
 
   const current = announcements.slice(0, 3)[activeIndex];
 
+
   return (
     <div className="max-w-full h-[176px] bg-(--Fantasy) rounded p-5 relative">
       <span className="absolute -top-0 right-4 bg-(--Sidecar-2) text-(--Whiskey) text-xs font-semibold px-3 py-1 rounded-md">
@@ -31,7 +32,7 @@ const Announcement = ({ announcements = [] }) => {
       <p className="text-(--Emperor) text-sm mt-2" dangerouslySetInnerHTML={{ __html: current.excerpt.rendered }} />
 
       <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2 cursor-pointer">
-      {announcements.lenght > 0 ? announcements.slice(0, 3).map((_, index) => (
+      {announcements.length > 0 ? announcements.slice(0, 3).map((_, index) => (
           <span
             key={index}
             onClick={() => handleDotClick(index)}

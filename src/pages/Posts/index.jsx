@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Category from "../../components/Category";
 import { useParams } from "react-router-dom";
-import { div } from "framer-motion/client";
+
 import './posts.css';
+import { formatDate } from "../../utils";
 
 const Posts = () => {
   const [post, setPost] = useState();
-  const { parentId, id } = useParams(); // Assuming you want to fetch posts by category ID
+  const { parentId, id } = useParams(); 
   // const VITE_REACT_APP_API_ROOT = import.meta.env.VITE_REACT_APP_API_ROOT;
 
   useEffect(() => {
     const url = `${import.meta.env.VITE_REACT_APP_API_ROOT}/posts/${id}?_embed`;
 
-    console.log("API ROOT:", url); // Debug .env
+    console.log("API ROOT:", url); 
 
     axios
       .get(url)
@@ -26,14 +27,6 @@ const Posts = () => {
       });
   }, []);
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }).format(date);
-  };
 
   return (
     <div className="relative h-full">

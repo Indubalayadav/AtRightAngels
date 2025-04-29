@@ -40,7 +40,6 @@ const Search = () => {
   const searchParam = searchParams.get("q") || "";
 
   const handleSearch = () => {
-    // Handle actual search logic
     getAllPosts(search);
   };
 
@@ -51,6 +50,7 @@ const Search = () => {
 
   useEffect(() => {
     getAllPosts(searchParam);
+    setSearch(searchParam);
   }, []);
 
   const getAllPosts = async (value) => {
@@ -94,7 +94,7 @@ const Search = () => {
           <div>
             <img src="/images/magazine-img.svg" alt="" />
           </div>
-          <h3 className="text-5xl font-bold mb-4">Search <span className="font-normal">"{searchParam}"</span></h3>
+          <h3 className="text-5xl font-bold mb-4">Search <span className="font-normal">"{search}"</span></h3>
 
           <div className="flex flex-col lg:flex-row gap-4 h-12">
             <div className="flex flex-1 items-center shadow-lg border border-(--Nevada)  rounded-md pl-3">

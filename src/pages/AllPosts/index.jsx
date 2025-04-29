@@ -3,8 +3,6 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import PostCard from "../../components/PostCard";
 import { getArticlesData, getCategoryData } from "../../services/apiServices";
-import MagazinePage from "../../components/MagazinePage";
-
 
 const AllArticles = () => {
   const [search, setSearch] = useState("");
@@ -28,15 +26,7 @@ const AllArticles = () => {
   }, [search, selectedCategories]);
 
   const handleSearch = () => {
-    // const params = new URLSearchParams();
-    // if (search) params.set("search", search);
-    // if (category) params.set("category", category);
-    // if (selectedCategories.length) {
-    //   params.set("categories", selectedCategories.join(","));
-    // }
-    // if (selectedTags.length) params.set("tags", selectedTags.join(","));
-    // // navigate(`/articles?${params.toString()}`);
-    // filterPosts();
+   
   };
 
   // Fetch Articles posts and announcements data
@@ -56,37 +46,7 @@ const AllArticles = () => {
         return;
       }
 
-      // const categoryRes = await axios.get(
-      //   `${
-      //     import.meta.env.VITE_REACT_APP_API_ROOT
-      //   }/categories?parent=${categoryId}`
-      // );
-      // const childCategoryIds = categoryRes.data.map((cat) => cat.id);
-      // setCategories(categoryRes.data);
-
-      // if (childCategoryIds.length > 0) {
-      //   const idsQuery = categoryParam
-      //     ? categoryParam
-      //     : childCategoryIds.join(",");
-      //   const postRes = await axios.get(
-      //     `${
-      //       import.meta.env.VITE_REACT_APP_API_ROOT
-      //     }/posts?_embed&&categories=${idsQuery}`
-      //   );
-
-      //   if (!categoryParam) {
-      //     const filteredPosts = postRes.data.filter(
-      //       (post) => !post.categories.includes(15)
-      //     );
-
-      //   setArticlesPosts(filteredPosts);
-      //   setFilteredPosts(filteredPosts);
-      // } else {
-      //   setArticlesPosts(postRes.data);
-      //   setFilteredPosts(postRes.data);
-      // }
-      // }
-      // const id = categoryParam ? categoryParam : categoryId;
+     
       const categoryRes = await getCategoryData();
       const posts = await getArticlesData(categoryParam, categoryId);
       console.log("Post Response:", posts);
@@ -161,7 +121,7 @@ const AllArticles = () => {
             <img src="/images/magazine-img.svg" alt="" />
           </div>
           <div className="text-base font-normal pt-2">
-            Home /{" "}
+           <a href="/"> Home /{" "}</a>
             {categoryId == 5
               ? "Articles"
               : categoryId == 10
@@ -282,6 +242,7 @@ const AllArticles = () => {
                   post={post}
                   mainSection={true}
                   sectionVariant="customSection"
+                  parentId={categoryId}
                 />{" "}
                 
               </div>

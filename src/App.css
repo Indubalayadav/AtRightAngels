@@ -117,7 +117,7 @@ body {
   .menu-btn {
     display: flex;
   }
-  /* Show navbar-dropdown when .menu-open is added dynamically */
+
   .menu-open #navbar-dropdown {
     display: flex;
   }
@@ -136,23 +136,24 @@ body {
 
   .mob-menu {
     position: absolute;
-    top: 162px;
-    margin: -12px;
+    top: 10.125rem; 
+    margin: -0.75rem;
     background-color: rgba(var(--white-color), 0.9);
     width: 100%;
-  
   }
-
+  
   .mob-menu ul li a {
     color: var(--black);
   }
-
+  
   .submenus {
     color: var(--black);
   }
- .mob-menu-btn{
-  padding: 0px 10px 10px;
- }
+  
+  .mob-menu-btn {
+    padding: 0rem 0.625rem 0.625rem; 
+  }
+  
   .left-btn {
     background: var(--Blumine);
   }

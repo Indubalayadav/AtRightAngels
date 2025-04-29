@@ -1,7 +1,7 @@
 import React from 'react'
 import Category from '../Category';
 
-const Magazinevisit= ({ post, value }) => {
+const Magazinevisit= ({ post, value, parentId=null }) => {
   console.log(value)
   return (
     <div className="bg-(--Beige) flex justify-center rounded-xl">
@@ -12,7 +12,7 @@ const Magazinevisit= ({ post, value }) => {
         {post.title.rendered.split(" ").length > 2 && '...'}</h3>
         <div className="mt-4 group">
           <a
-            href={`/posts/${post.id}`}
+            href={`${parentId}/posts/${post.id}`}
             rel="noopener noreferrer"
             className="flex justify-center gap-1 bg-(--primary-color) text-(--black) font-bold py-3 rounded-md shadow-md border border-gray-300 hover:bg-gray-100 transition"
           >

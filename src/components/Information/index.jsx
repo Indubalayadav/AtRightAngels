@@ -27,7 +27,7 @@ const Information = ({
       <div>
         <img src="images/lines-top.svg" alt="" className="w-full"/>
       </div>
-      <div className="xl:p-15 sm:p-6 flex flex-col md:gap-6 gap-2 items-center justify-center ">
+      <div className="xl:p-15 sm:p-6 p-4 flex flex-col md:gap-6 gap-2 items-center justify-center ">
       <div className="" />
 
       <h3 className="text-base lg:text-xl tracking-wider font-bold text-(--black)"> {title}</h3>
