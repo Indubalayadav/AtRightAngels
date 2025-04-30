@@ -39,37 +39,6 @@ export const getArticlesData = async (categoryParam = null, categoryId) => {
     }
   };
 
-  // Fetch Resources posts data
-
-//   export  const getResourcesData = async (categoryId) => {
-//     try {
-//       const categoryRes = await axios.get(
-//         `${import.meta.env.VITE_REACT_APP_API_ROOT}/categories?parent=${categoryId}`
-//       );
-//       const childCategoryIds = categoryRes.data.map((cat) => cat.id);
-
-//       if (childCategoryIds.length > 0) {
-//         const idsQuery = childCategoryIds.join(",");
-//         const postRes = await axios.get(
-//           `${
-//             import.meta.env.VITE_REACT_APP_API_ROOT
-//           }/posts?_embed&&categories=${idsQuery}`
-//         );
-
-//         console.log("Post Response:", postRes.data);
-
-//         const sortedData = postRes.data.sort(
-//           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-//         );
-//        return sortedData;
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//     }
-//   };
-
-
-
 
   // Fetch Magazine posts data
   
@@ -89,32 +58,8 @@ export const getArticlesData = async (categoryParam = null, categoryId) => {
   };
 
 
-  // Fetch Magazine Visit posts data
-  // export  const getMagazineVisitData = async (categoryId) => {
-  //   try {
-  //     const categoryRes = await axios.get(
-  //       `${import.meta.env.VITE_REACT_APP_API_ROOT}/categories?parent=${categoryId}`
-  //     );
-  //     const childCategoryIds = categoryRes.data.map((cat) => cat.id);
 
-  //     if (childCategoryIds.length > 0) {
-  //       const idsQuery = childCategoryIds.join(",");
-  //       const postRes = await axios.get(
-  //         `${
-  //           import.meta.env.VITE_REACT_APP_API_ROOT
-  //         }/posts?_embed&&categories=${idsQuery}`
-  //       );
-
-  //       const sortedData = postRes.data.sort(
-  //         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  //       );
-  //       return sortedData;
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
+  // fetch category in selected category
    export const getCategoryData = async() =>{
     try {
       const categoryRes = await axios.get(

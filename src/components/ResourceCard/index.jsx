@@ -63,7 +63,7 @@ const ResourcesCard = ({
       <div
         className={`${
           sidebarWidget ? "gap-2" : "gap-4"
-        } md:bg-(--Linen) w-full flex flex-col   justify-between lg:p-4 xl:p-6 p-6 `}
+        } md:bg-(--Linen) w-full flex flex-col justify-between lg:p-4 xl:p-6 p-6 hover:bg-(--Alto)`}
       >
         <div>
           <Category category={post._embedded?.["wp:term"]?.[0]?.[0]?.name}/>

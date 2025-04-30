@@ -42,8 +42,8 @@ const PostCard = ({
   return (
     <div
       className={`${
-        sidebarWidget ? "flex gap-4" : ""
-      } rounded-lg overflow-hidden`}
+        sidebarWidget ? "flex gap-4 py-1" : ""
+      } rounded-lg overflow-hidden hover:bg-(--Alto)`}
     >
       <img
         src={post._embedded?.["wp:featuredmedia"]?.[0]?.source_url}
@@ -52,8 +52,8 @@ const PostCard = ({
       />
       <div
         className={`${
-          sidebarWidget ? "" : "p-4 border border-(--WillowBrook)"
-        } flex flex-col justify-between gap-2 w-full`}
+          sidebarWidget ? "" : "p-4 border border-(--WillowBrook) hover:bg-(--Alto)"
+        } flex flex-col justify-between gap-2 w-full `}
       >
         <div>
           <Category category={post._embedded?.["wp:term"]?.[0]?.[0]?.name} />

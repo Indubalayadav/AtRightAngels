@@ -52,7 +52,7 @@ const Posts = () => {
             : ""}
         </div>
         {post ? (
-          <div className="">
+          <div className="hover:bg-(--Alto)">
             <div className="md:p-16 p-6 space-y-6">
               <Category
                 category={post._embedded?.["wp:term"]?.[0]?.[0]?.name}

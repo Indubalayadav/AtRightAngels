@@ -73,17 +73,21 @@ const AllArticles = () => {
   };
 
   const filterPosts = () => {
-    let updated = [...articlesPosts];
-
+    let updated = [...articlesPosts];   // data  show after clear all 
+    
     if (search) {
       updated = updated.filter((post) =>
         post.title.rendered.toLowerCase().includes(search.toLowerCase())
       );
     }
 
+
+    // selected categories        
+      console.log("Selected Categories:", categories, selectedCategories);                                      
+
     if (selectedCategories.length > 0) {
       const selectedCatIds = categories
-        .filter((cat) => selectedCategories.includes(cat.slug))
+        .filter((cat) => selectedCategories.includes(cat.id.toString()))
         .map((cat) => cat.id);
 
       updated = updated.filter((post) =>
@@ -102,7 +106,7 @@ const AllArticles = () => {
   };
 
   const getCategoryName = () => {
-    const selectedCat = categories.find((cat) => cat.slug === category);
+    const selectedCat = categories.find((cat) => cat.id === category);
     return selectedCat?.name || "";
   };
 
@@ -181,7 +185,7 @@ const AllArticles = () => {
             >
               <option value="">Select Category</option>
               {categories.map((cat) => (
-                <option key={cat.slug} value={cat.slug}>
+                <option key={cat.id} value={cat.id}>
                   {cat.name}
                 </option>
               ))}
@@ -202,7 +206,7 @@ const AllArticles = () => {
             )}
 
             {selectedCategories.map((catSlug) => {
-              const cat = categories.find((c) => c.slug === catSlug);
+              const cat = categories.find((c) => c.id == catSlug);
               return (
                 <div
                   key={catSlug}
@@ -212,7 +216,7 @@ const AllArticles = () => {
                   <button
                     onClick={() =>
                       setSelectedCategories(
-                        selectedCategories.filter((slug) => slug !== catSlug)
+                        selectedCategories.filter((id) => id !== catSlug)
                       )
                     }
                     className="ml-2 text-(--Emperor) hover:text-(--red)"

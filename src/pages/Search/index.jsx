@@ -52,6 +52,9 @@ const Search = () => {
     getAllPosts(searchParam);
     setSearch(searchParam);
   }, []);
+  console.log(`${
+          import.meta.env.VITE_REACT_APP_API_ROOT
+        }/posts?_embed&search=${searchParam}`)
 
   const getAllPosts = async (value) => {
     try {

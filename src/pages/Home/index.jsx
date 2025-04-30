@@ -259,7 +259,7 @@ const Home = () => {
                 <Announcement announcements={announcements} />
               </div>
             </div>
-            <div className="min-h-[18rem] md:min-h-[20rem] lg:min-h-[21.75rem] max-h-[25rem]  flex flex-col gap-6">
+            <div className="min-h-[18rem] md:min-h-[20rem] lg:min-h-[21.75rem] max-h-[25rem]  flex flex-col gap-5">
               {posts.length > 0 ? (
                 posts.slice(3, 6).map((post, index) => (
                   <React.Fragment key={post.id}>
