@@ -13,9 +13,10 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
 
+  const hamburgerRef = useRef(null);
+
   const modalRef = useRef(null);
   const navigate = useNavigate();
-
 
   const logoRef = useRef(null);
   const titleRef = useRef(null);
@@ -37,8 +38,13 @@ const Header = () => {
 
   // animation
   useEffect(() => {
-    if (!logoRef.current || !titleRef.current || navItemsRef.current.length === 0) return;
-  
+    if (
+      !logoRef.current ||
+      !titleRef.current ||
+      navItemsRef.current.length === 0
+    )
+      return;
+
     const ctx = gsap.context(() => {
       // Logo animation
       gsap.from(logoRef.current, {
@@ -50,10 +56,10 @@ const Header = () => {
           trigger: logoRef.current,
           start: "top 80%",
           toggleActions: "play none none none",
-          once: true, 
+          once: true,
         },
       });
-  
+
       // Title animation
       gsap.from(titleRef.current, {
         y: 40,
@@ -65,10 +71,10 @@ const Header = () => {
           trigger: titleRef.current,
           start: "top 80%",
           toggleActions: "play none none none",
-          once: true, 
+          once: true,
         },
       });
-  
+
       // Navigation items animation
       navItemsRef.current.forEach((el, index) => {
         if (!el) return;
@@ -82,23 +88,42 @@ const Header = () => {
             trigger: el,
             start: "top 80%",
             toggleActions: "play none none none",
-            once: true, 
+            once: true,
           },
         });
       });
     });
-  
-    return () => ctx.revert(); 
-  }, []);
 
-   // Handle refs for navigation items
-   const handleNavItemRef = (el) => {
+    return () => ctx.revert();
+  }, []);
+  useEffect(() => {
+    if (hamburgerRef.current) {
+      gsap.to(hamburgerRef.current, {
+        transformOrigin: "center",
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    }
+  }, [menuOpen]);
+
+  // Animation for menu opening
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    gsap.fromTo(
+      ".mob-menu-btn",
+      { opacity: 0, y: -30 },
+      { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" }
+    );
+  }, [menuOpen]);
+
+  // Handle refs for navigation items
+  const handleNavItemRef = (el) => {
     if (el && !navItemsRef.current.includes(el)) {
       navItemsRef.current.push(el);
     }
   };
-  
-  
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -108,7 +133,6 @@ const Header = () => {
 
     window.addEventListener("resize", handleResize);
 
-   
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -164,6 +188,7 @@ const Header = () => {
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="block lg:hidden text-(--primary-color)"
+                ref={hamburgerRef}
               >
                 <Menu size={28} />
               </button>
@@ -185,10 +210,7 @@ const Header = () => {
                           menuOpen ? "flex items-normal" : "hidden items-center"
                         } lg:flex`}
                       >
-                        <li
-                          className="relative"
-                          ref={handleNavItemRef}
-                        >
+                        <li className="relative" ref={handleNavItemRef}>
                           <button
                             onClick={() => {
                               closeAllDropdowns("articles");
@@ -265,10 +287,7 @@ const Header = () => {
                             </div>
                           )}
                         </li>
-                        <li
-                          className="relative"
-                          ref={handleNavItemRef}
-                        >
+                        <li className="relative" ref={handleNavItemRef}>
                           <button
                             onClick={() => {
                               closeAllDropdowns("resources");

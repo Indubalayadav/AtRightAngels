@@ -88,11 +88,9 @@ body {
   background-color: rgba(3, 2, 2, 0.06);
   border-radius: 0.4rem;
 }
-
 .footer:hover {
   text-decoration: underline;
 }
-
 
 .header-menu {
   @apply font-medium text-sm text-(--primary-color) tracking-wide;
@@ -108,9 +106,6 @@ body {
 #navbar-dropdown {
   display: flex;
 }
-
-
-
 
 
 /* media query */
